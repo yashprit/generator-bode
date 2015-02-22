@@ -1,0 +1,39 @@
+{
+  "name": "<%= slugname %>",
+  "version": "0.0.0",
+  "description": "<%= props.description %>",
+<% if (props.homepage) { %>  "homepage": "<%= props.homepage %>",<% } %>
+  "author": {
+    "name": "<%= props.authorName %>",
+    "email": "<%= props.authorEmail %>"<% if (props.authorUrl) { %>,
+    "url": "<%= props.authorUrl %>"<% } %>
+  },
+  "repository": "<%= repoUrl %>",
+  "license": "<%= props.license %>",
+  "files": [
+    "index.js"<% if (props.cli) { %>,
+    "cli.js"<% } %>
+  ],
+  "keywords": [
+    "<%= slugname %>"<% for (var i = 0; i < keywords.length; i++) { %>,
+    "<%= keywords[i] %>"<% } %>
+  ],
+  "dependencies": {<% if (props.cli) { %>
+    "meow": "^2.0.0"
+  <% } %>},
+  "devDependencies": {
+    "gulp": "^3.8.11",
+		"gulp-cli": "^0.1.5",
+    "gulp-nodeunit": "^0.0.5",
+    "grunt-mocha-cli": "^1.11.0",
+    "jshint-stylish": "^1.0.0"<% if (props.browser) { %>,
+    "browserify": "^7.0.0"<% } %>
+  },
+  "scripts": {
+    "test": "grunt"<% if (props.browser) { %>,
+    "browser": "browserify index.js > browser.js"<% } %>
+  }<% if (props.cli) { %>,
+  "bin": {
+    "<%= slugname %>": "cli.js"
+  }<% } %>
+}
