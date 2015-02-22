@@ -7,7 +7,6 @@ module.exports = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
     this.log(
-      this.yeoman +
       '\nThe name of your project shouldn\'t contain "node" or "js" and' +
       '\nshould be a unique ID not already in use at npmjs.org.');
   },
@@ -92,23 +91,6 @@ module.exports = yeoman.generators.Base.extend({
       type: 'confirm',
       name: 'browser',
       message: 'Do you need Browserify?'
-    }, {
-    	type: 'list',
-			name: 'test framework',
-			message: 'Which Test framework do you want to use?',
-			choice: [
-				'gulp',
-				'grunt'
-			]
-    }, {
-    	type: 'list',
-			name: 'test framework',
-			message: 'Which Test framework do you want to use?',
-			choice: [
-				'mocha wih chai',
-				'jasmine',
-				'nodeunit'
-			]
     }];
 
     this.currentYear = (new Date()).getFullYear();
@@ -123,10 +105,6 @@ module.exports = yeoman.generators.Base.extend({
       this.keywords = props.keywords.split(',').map(function (el) {
         return el.trim();
       });
-			
-			this.package = prope.packages.split(',').map(function(pack){
-				return pack.trim();
-			});
 
       this.props = props;
 
