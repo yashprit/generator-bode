@@ -24,4 +24,4 @@ $ yo node
 
 ## License
 
-MIT © Yeoman team
+MIT © Yashprit
