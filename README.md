@@ -7,10 +7,10 @@
 | $$$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$
 |_______/  \______/  \_______/ \_______/
 
-# bode
-yeoman genrator for bootstrapping npm package. Inspired by [generator-node](https://github.com/yeoman/generator-node) 
 
 # Bode Generator [![Build Status](https://travis-ci.org/yashprit/bode.svg?branch=master)](https://travis-ci.org/yashprit/bode)
+
+Yeoman generator for bootstrapping npm package. Inspired by [generator-node](https://github.com/yeoman/generator-node) 
 
 > Create a Node.js module
 
