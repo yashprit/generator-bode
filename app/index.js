@@ -1,12 +1,32 @@
 'use strict';
-var path = require('path');
+var path 		= require('path');
 var npmName = require('npm-name');
-var yeoman = require('yeoman-generator');
+var yeoman 	= require('yeoman-generator');
 
 module.exports = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
-    this.log(
+		
+		var bode = "\n\n" +
+		"                                                 dddddddd\n" +                    
+		"BBBBBBBBBBBBBBBBB                                d::::::d\n" +                    
+		"B::::::::::::::::B                               d::::::d\n" +                    
+		"B::::::BBBBBB:::::B                              d::::::d\n" +                    
+		"BB:::::B     B:::::B                             d:::::d\n" +                     
+		"  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n" +    
+		"  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n" +  
+		"  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n" +
+		"  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n" +
+		"  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n" +
+		"  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n" + 
+		"  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n" +  
+		"  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n" +           
+		"BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n" +          
+		"B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n" +  
+		"B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n" +  
+		"BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n";                                                                   
+		
+    this.log(bode +
       '\nThe name of your project shouldn\'t contain "node" or "js" and' +
       '\nshould be a unique ID not already in use at npmjs.org.');
   },
@@ -24,13 +44,11 @@ module.exports = yeoman.generators.Base.extend({
       default: true,
       when: function(answers) {
         var done = this.async();
-
         npmName(answers.name, function (err, available) {
           if (!available) {
             done(true);
             return;
           }
-
           done(false);
         });
       }
@@ -45,7 +63,6 @@ module.exports = yeoman.generators.Base.extend({
       this.safeSlugname = this.slugname.replace(/-+([a-zA-Z0-9])/g, function (g) {
         return g[1].toUpperCase();
       });
-
       done();
     }.bind(this));
   },
@@ -54,9 +71,13 @@ module.exports = yeoman.generators.Base.extend({
     var cb = this.async();
 
     var prompts = [{
+      name: 'version',
+      message: 'version(0.0.0)',
+      default: '0.0.1'
+    },{
       name: 'description',
       message: 'Description',
-      default: 'The best module ever.'
+      default: 'This is awesome application'
     }, {
       name: 'homepage',
       message: 'Homepage'
@@ -65,7 +86,7 @@ module.exports = yeoman.generators.Base.extend({
       message: 'License',
       default: 'MIT'
     }, {
-      name: 'githubUsername',
+      name: 'githubUserName',
       message: 'GitHub username',
       store: true
     }, {
@@ -82,15 +103,27 @@ module.exports = yeoman.generators.Base.extend({
       store: true
     }, {
       name: 'keywords',
-      message: 'Key your keywords (comma to split)'
+      message: 'Give me some Keywords (comma to split)'
     }, {
       type: 'confirm',
       name: 'cli',
-      message: 'Do you need a CLI?'
+      message: 'Lets run it from CLI'
     }, {
       type: 'confirm',
       name: 'browser',
-      message: 'Do you need Browserify?'
+      message: 'Shall I add Browserify support?'
+    }, {
+    	type: "list",
+			name: 'taskRunner',
+			message: 'Select Task runner',
+			choices:  [{name:'gulpfile'}, {name:'Gruntfile'}],
+			filter: function( val ) { return val + ".js" },
+			validate: function(answer){
+			  if ( answer.length < 1 ) {
+			  	return "You must choose at least one topping.";
+			  }
+			  return true;
+			}
     }];
 
     this.currentYear = (new Date()).getFullYear();
@@ -120,14 +153,22 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('travis.yml', '.travis.yml');
+		
+		var fileName = this.props.taskRunner
+    this.copy(fileName, fileName);
 
     this.template('README.md', 'README.md');
-    this.template('gulpfile.js', 'gulpfile.js');
+
     this.template('_package.json', 'package.json');
 
     if (this.props.cli) {
       this.template('cli.js', 'cli.js');
     }
+		var license = this.props.license.trim().toUpperCase();
+		if(this.license === 'MIT') {
+			this.template('MIT_LICENSE', 'LICENSE')
+		}
+		this.copy('CONTRIBUTING.md', 'CONTRIBUTING.md');
   },
 
   projectfiles: function () {

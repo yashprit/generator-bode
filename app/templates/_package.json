@@ -1,14 +1,20 @@
 {
   "name": "<%= slugname %>",
-  "version": "0.0.0",
-  "description": "<%= props.description %>",
-<% if (props.homepage) { %>  "homepage": "<%= props.homepage %>",<% } %>
+  "version": "<%= props.version %>",
+  "description": "<%= props.description %>",<% if (props.homepage) { %>
+	"homepage": "<%= props.homepage %>",<% } %>
+	"bugs": {
+		"url": "<%= props.githubUsername %>/<%= slugname %>/issues"
+	},
   "author": {
-    "name": "<%= props.authorName %>",
-    "email": "<%= props.authorEmail %>"<% if (props.authorUrl) { %>,
-    "url": "<%= props.authorUrl %>"<% } %>
+    "url": "<%= props.authorUrl %>",<% if (props.authorName) { %>
+		"name": "<%= props.authorName %>"<%} if (props.authorEmail) { %>,
+    "email": "<%= props.authorEmail %>"<% } %>
   },
-  "repository": "<%= repoUrl %>",
+  "repository": {
+		"type": "git",
+		"url": "<%= repoUrl %>"
+  },
   "license": "<%= props.license %>",
   "files": [
     "index.js"<% if (props.cli) { %>,
@@ -19,21 +25,24 @@
     "<%= keywords[i] %>"<% } %>
   ],
   "dependencies": {<% if (props.cli) { %>
-    "meow": "^2.0.0"
-  <% } %>},
-  "devDependencies": {
+		"meow": "^2.0.0"
+	<% } %>},
+  "devDependencies": {<% if (props.taskRunner === 'Gruntfile.js') { %>
+		"grunt-cli": "^0.1.13",
+		"grunt-contrib-jshint": "^0.10.0",
+		"grunt-contrib-nodeunit": "^0.4.1",
+		"grunt-contrib-watch": "^0.6.1",
+		"load-grunt-tasks": "^1.0.0",<% } %><% if (props.taskRunner === 'gulpfile.js') { %>
     "gulp": "^3.8.11",
 		"gulp-cli": "^0.1.5",
     "gulp-nodeunit": "^0.0.5",
-    "grunt-mocha-cli": "^1.11.0",
+		"gulp-watch": "^4.1.1",
+		"gulp-jshint": "^1.9.2",<% } %>
     "jshint-stylish": "^1.0.0"<% if (props.browser) { %>,
-    "browserify": "^7.0.0"<% } %>
+ 		"browserify": "^7.0.0"<% } %>
   },
   "scripts": {
-    "test": "grunt"<% if (props.browser) { %>,
-    "browser": "browserify index.js > browser.js"<% } %>
-  }<% if (props.cli) { %>,
-  "bin": {
-    "<%= slugname %>": "cli.js"
-  }<% } %>
+		<% if (props.browser) { %>"browser": "browserify index.js > browser.js"<% } %>
+	}<% if (props.cli) { %>,
+  "bin": { "<%= slugname %>": "cli.js"}<% } %>
 }

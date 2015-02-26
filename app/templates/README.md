@@ -29,11 +29,15 @@ $ npm run browser
 ```<% } %>
 
 
+##Report Issue 
+(Report Issue)[issue-url]
+
+
 ## License
 
 <%= props.license %> © [<%= props.authorName %>](<%= props.authorUrl %>)
 
-
+[issue-url]: https://github.com/<%= props.githubUsername %>/<%= slugname %>/issues
 [npm-url]: https://npmjs.org/package/<%= slugname %>
 [npm-image]: https://badge.fury.io/js/<%= slugname %>.svg
 [travis-url]: https://travis-ci.org/<%= props.githubUsername %>/<%= slugname %>
