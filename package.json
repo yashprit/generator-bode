@@ -2,7 +2,25 @@
   "name": "generator-bode",
   "version": "0.0.1",
   "description": "yeoman genrator for bootstrapping npm package",
+  "bugs": {
+    "url": "https://github.com/yashprit/bode/issues"
+  },
+  "homepage": "https://github.com/yashprit/bode",
+  "keywords": [
+    "yeoman-generator",
+    "npm",
+    "package",
+    "bootstrapping",
+    "scaffold",
+    "node",
+    "module",
+    "cli"
+  ],
+  "author": "Yashprit Singh",
   "main": "app/index.js",
+  "scripts": {
+    "test": "mocha --timeout 50000"
+  },
   "dependencies": {
     "npm-name": "^1.0.3",
     "yeoman-generator": "^0.18.9"
@@ -11,38 +29,12 @@
     "shelljs": "^0.3.0",
     "mocha": "^2.1.0"
   },
-	"peerDependencies": {
-		"yo": ">=1.0.0",
-	  "generator-mocha": ">=0.1.0"
-	},
-  "scripts": {
-    "test": "mocha --timeout 50000"
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.2.10"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:yashprit/bode.git"
-  },
-  "keywords": [
-		"yeoman-generator",
-    "npm",
-    "package",
-    "bootstrapping"
+  "files": [
+    "app"
   ],
-	"engines": {
-		"node": ">=0.10.0",
-	  "npm": ">=1.2.10"
-	 },
-	 "files": [
-	  "app"
-		],
-  "author": "Yashprit Singh",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yashprit/bode/issues"
-  },
-  "homepage": "https://github.com/yashprit/bode",
-	"engines": {
-		"node": ">=0.10.0",
-	  "npm": ">=1.2.10"
-	}
+  "license": "MIT"
 }

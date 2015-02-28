@@ -4,8 +4,8 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var shelljs = require('shelljs');
 
-describe('node generator', function () {
-	var commonConfig = {
+describe('node generator', function() {
+  var commonConfig = {
     'name': 'mymodule',
     'description': 'awesome module',
     'pkgName': false,
@@ -16,10 +16,11 @@ describe('node generator', function () {
     'authorEmail': 'octo@example.com',
     'authorUrl': 'http://sample.io',
     'keywords': 'keyword1,keyword2,keyword3',
-		'browser': true
+    'browser': true
   }
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+
+  beforeEach(function(done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
       if (err) {
         done(err);
         return;
@@ -33,7 +34,7 @@ describe('node generator', function () {
     }.bind(this));
   });
 
-  it('creates expected files with gulp', function (done) {
+  it('creates expected files with gulp', function(done) {
     var expected = [
       'index.js',
       'cli.js',
@@ -46,17 +47,19 @@ describe('node generator', function () {
       'package.json',
       'README.md'
     ];
-		
-		
-		var withCliGulp = commonConfig;
-		withCliGulp.cli = true;
-		withCliGulp.taskRunner = 'gulpfile.js';
+
+
+    var withCliGulp = commonConfig;
+    withCliGulp.cli = true;
+    withCliGulp.taskRunner = 'gulpfile.js';
 
     helpers.mockPrompt(this.app, withCliGulp);
 
-    shelljs.exec('npm install meow', {silent: true});
+    shelljs.exec('npm install meow', {
+      silent: true
+    });
 
-    this.app.run(function () {
+    this.app.run(function() {
       assert.file(expected);
       assert.fileContent('package.json', /"name": "mymodule"/);
       assert.deepEqual(require('./temp/cli.js'), {});
@@ -65,7 +68,7 @@ describe('node generator', function () {
 
   });
 
-  it('creates expected files without cli with Grunt', function (done) {
+  it('creates expected files without cli with Grunt', function(done) {
     var expected = [
       'index.js',
       'test/test.js',
@@ -76,14 +79,14 @@ describe('node generator', function () {
       'package.json',
       'README.md'
     ];
-		
-		var withoutCliGrunt = commonConfig;
-		withoutCliGrunt.cli = false;
-		withoutCliGrunt.taskRunner = 'Gruntfile.js';
+
+    var withoutCliGrunt = commonConfig;
+    withoutCliGrunt.cli = false;
+    withoutCliGrunt.taskRunner = 'Gruntfile.js';
 
     helpers.mockPrompt(this.app, withoutCliGrunt);
 
-    this.app.run(function () {
+    this.app.run(function() {
       assert.file(expected);
       assert.fileContent('package.json', /"name": "mymodule"/);
       done();

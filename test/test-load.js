@@ -1,8 +1,8 @@
 'use strict';
-var assert  = require('assert');
+var assert = require('assert');
 
-describe('node generator', function () {
-  it('can be imported without blowing up', function () {
+describe('node generator', function() {
+  it('can be imported without blowing up', function() {
     var app = require('../app');
     assert(app !== undefined);
   });
