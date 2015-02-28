@@ -28,25 +28,29 @@
 		"meow": "^2.0.0"
 	<% } %>},
   "devDependencies": {<% if (props.taskRunner === 'Gruntfile.js') { %>
-		"grunt-cli": "^0.1.13",
-		"grunt-contrib-jshint": "^0.10.0",
-		"grunt-contrib-nodeunit": "^0.4.1",
-		"grunt-contrib-watch": "^0.6.1",
-		"load-grunt-tasks": "^1.0.0",<% } %><% if (props.taskRunner === 'gulpfile.js') { %>
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0"<% if (props.unit['node_unit'] ) { %>,
+		"grunt-contrib-nodeunit": "^0.4.1"<% } else if ( props.unit['mocha_chai'] ) { %>,
+		"grunt-mocha-cli": "^1.11.0",
+		"chai": "^2.1.0"<%} else if ( props.unit['jasmine'] ) { %>,
+		"grunt-contrib-jasmine": "^0.8.2"<% } } if (props.taskRunner === 'gulpfile.js') { %>
 		"gulp": "^3.8.11",
 		"gulp-cli": "^0.1.5",
 		"gulp-watch": "^4.1.1",
-		"gulp-jshint": "^1.9.2"<% if (props.unit['node_unit']) { %>,
-		"gulp-nodeunit": "^0.0.5"<% } else if(props.unit['mocha_chai']) { %>,
+		"gulp-jshint": "^1.9.2"<% if (props.unit['node_unit'] ) { %>,
+		"gulp-nodeunit": "^0.0.5"<% } else if ( props.unit['mocha_chai'] ) { %>,
 		"gulp-mocha": "^2.0.0",
-		"chai": "^2.1.0"<%} else if(props.unit['jasmine']){%>,
+		"chai": "^2.1.0"<%} else if ( props.unit['jasmine'] ) { %>,
 		"gulp-jasmine": "^2.0.0"<% } } %>,	
 		"jshint-stylish": "^1.0.0"<% if (props.browser) { %>,
 		"browserify": "^7.0.0"<% } %>
   },
   "scripts": {
-		<% if (props.taskRunner === 'Gruntfile.js') { %>"test": "grunt test/*",<% } %>
-		<% if (props.taskRunner === 'gulpfile.js') { %>"test": "gulp test/*",<% } %>
+		<% if (props.taskRunner === 'Gruntfile.js') { %>"test": "grunt test",<% } %>
+		<% if (props.taskRunner === 'gulpfile.js') { %>"test": "gulp test",<% } %>
 		<% if (props.browser) { %>"browser": "browserify index.js > browser.js"<% } %>
 	}<% if (props.cli) { %>,
   "bin": { 

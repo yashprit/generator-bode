@@ -10,5 +10,14 @@
   "unused": true,
   "boss": true,
   "eqnull": true,
-  "node": true
+  "expr": true,
+  "node": true<% if (props.unit['mocha_chai'] || props.unit['jasmine']){ %>,
+  "globals"   : {
+  	"describe"   : false,
+    "it"         : false,
+    "before"     : false,
+    "beforeEach" : false,
+    "after"      : false,
+    "afterEach"  : false
+  }<% } %>
 }

@@ -20,14 +20,28 @@ module.exports = function (grunt) {
       test: {
         src: ['test/**/*.js']
       }
-    },
+    },<% if (props.unit['node_unit']) { var task = 'nodeunit' %>
+		nodeunit: {
+			all: ['test/*.js'],
+			options: {
+			  reporter: 'junit',
+			  reporterOptions: {
+			  	output: 'outputdir'
+			  }
+			 }
+		},<% } else if (props.unit['mocha_chai']) { var task = 'mochacli'%>
     mochacli: {
       options: {
         reporter: 'nyan',
         bail: true
       },
       all: ['test/*.js']
-    },
+    },<% } else if (props.unit['jasmine']) { var task = 'jasmine'%>
+		jasmine: {
+			test: {
+				src: 'test/*.js'
+			}
+		}, <% } %>	
     watch: {
       gruntfile: {
         files: '<%%= jshint.gruntfile.src %>',
@@ -35,14 +49,14 @@ module.exports = function (grunt) {
       },
       js: {
         files: '<%%= jshint.js.src %>',
-        tasks: ['jshint:js', 'mochacli']
+        tasks: ['jshint:js', '<%= task%>']
       },
       test: {
         files: '<%%= jshint.test.src %>',
-        tasks: ['jshint:test', 'mochacli']
+        tasks: ['jshint:test', '<%= task%>']
       }
     }
   });
 
-  grunt.registerTask('default', ['jshint', 'mochacli']);
+  grunt.registerTask('test', ['jshint', '<%= task%>']);
 };

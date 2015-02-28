@@ -10,19 +10,19 @@ gulp.task('lint', function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
-<%if(props.unit['node_unit']){%>
+<% if (props.unit['node_unit']) { %>
 gulp.task('test', function() {
 	return gulp.src('test/*.js').pipe(nodeunit());
 });
-<%} else if(props.unit['mocha_chai']){%>
+<%} else if (props.unit['mocha_chai']) { %>
 gulp.task('test', function() {
   return gulp.src('test/*.js').pipe(mocha());
 });
-<%} else if(props.unit['jasmine']){%>
+<% } else if (props.unit['jasmine']) { %>
 gulp.task('test', function() {
 	return gulp.src('test/*.js').pipe(jasmine());
 });
-<%}%>
+<% } %>
 
 // Watch Files For Changes
 gulp.task('watch', function() {

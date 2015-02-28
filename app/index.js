@@ -144,25 +144,25 @@ module.exports = yeoman.generators.Base.extend({
       cb();
     }.bind(this));
   },
-
-
+	
   app: function () {
     this.config.save();
     this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('travis.yml', '.travis.yml');
 		
 		this.props.unit = {
 			"node_unit": true,
-			"moch_chai": false,
+			"mocha_chai": false,
 			"jasmine": false
 		};
 		
 		for(var key in this.props.unit){
 			this.props.unit[key] = key === this.props.test? true : false
 		}
+		
+		this.template('jshintrc', '.jshintrc');
 
 		var fileName = this.props.taskRunner
     this.template(fileName, fileName);
@@ -183,7 +183,6 @@ module.exports = yeoman.generators.Base.extend({
 
   projectfiles: function () {
     this.template('index.js', 'index.js');
-    this.mkdir('test');
     this.template('test/test.js', 'test/test.js');
   },
 
