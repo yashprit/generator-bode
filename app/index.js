@@ -117,13 +117,13 @@ module.exports = yeoman.generators.Base.extend({
 			name: 'taskRunner',
 			message: 'Select Task runner',
 			choices:  [{name:'gulpfile'}, {name:'Gruntfile'}],
-			filter: function( val ) { return val + ".js" },
-			validate: function(answer){
-			  if ( answer.length < 1 ) {
-			  	return "You must choose at least one topping.";
-			  }
-			  return true;
-			}
+			filter: function( val ) { return val + ".js" }
+    }, {
+    	type: "list",
+			name: 'test',
+			message: 'Choose your test suite',
+			choices:  [{name: 'node_unit'},{name:'mocha_chai'}, {name:'jasmine'}],
+			filter: function( val ) { return val}
     }];
 
     this.currentYear = (new Date()).getFullYear();
@@ -154,8 +154,18 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitattributes', '.gitattributes');
     this.copy('travis.yml', '.travis.yml');
 		
+		this.props.unit = {
+			"node_unit": true,
+			"moch_chai": false,
+			"jasmine": false
+		};
+		
+		for(var key in this.props.unit){
+			this.props.unit[key] = key === this.props.test? true : false
+		}
+
 		var fileName = this.props.taskRunner
-    this.copy(fileName, fileName);
+    this.template(fileName, fileName);
 
     this.template('README.md', 'README.md');
 
@@ -165,8 +175,8 @@ module.exports = yeoman.generators.Base.extend({
       this.template('cli.js', 'cli.js');
     }
 		var license = this.props.license.trim().toUpperCase();
-		if(this.license === 'MIT') {
-			this.template('MIT_LICENSE', 'LICENSE')
+		if(license === 'MIT') {
+			this.template('MIT_LICENSE', 'LICENSE');
 		}
 		this.copy('CONTRIBUTING.md', 'CONTRIBUTING.md');
   },
