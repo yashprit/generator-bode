@@ -40,8 +40,6 @@ Bug [here](https://github.com/yashprit/generator-bode/issues)
 
 MIT © [Yashprit](http://yashprit.github.io/)
 
-
-[issue-url]:
 [npm-url]: https://www.npmjs.com/package/generator-bode
 [npm-image]: https://badge.fury.io/js/generator-bode.svg
 [travis-url]: https://travis-ci.org/yashprit/generator-bode
