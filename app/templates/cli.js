@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+
 'use strict';
 var meow = require('meow');
-var <%= safeSlugname %> = require('./');
+var <%= safeSlugname %> = require('./lib');
 
 var cli = meow({
   help: [
@@ -13,4 +14,4 @@ var cli = meow({
   ].join('\n')
 });
 
-<%= safeSlugname %>(cli.input[0]);
+<%= safeSlugname %> (cli.input[0]);

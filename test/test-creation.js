@@ -15,9 +15,19 @@ describe('node generator', function() {
     'authorName': 'Octo Cat',
     'authorEmail': 'octo@example.com',
     'authorUrl': 'http://sample.io',
-    'keywords': 'keyword1,keyword2,keyword3',
-    'browser': true
+    'keywords': 'keyword1,keyword2,keyword3'
   }
+
+  var defaultFile = [
+    'lib/index.js',
+    'test/test.js',
+    '.gitignore',
+    '.jshintrc',
+    '.travis.yml',
+    '.editorconfig',
+    'package.json',
+    'README.md'
+  ]
 
   beforeEach(function(done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
@@ -34,22 +44,47 @@ describe('node generator', function() {
     }.bind(this));
   });
 
-  it('creates expected files with gulp', function(done) {
-    var expected = [
-      'index.js',
-      'cli.js',
-      'test/test.js',
-      '.gitignore',
-      '.jshintrc',
-      '.travis.yml',
-      '.editorconfig',
-      'gulpfile.js',
-      'package.json',
-      'README.md'
-    ];
-
+  it('create only npm module with gulp', function(done) {
+    var expected = defaultFile.concat('gulpfile.js');
 
     var withCliGulp = commonConfig;
+    withCliGulp.browser = false;
+    withCliGulp.cli = false;
+    withCliGulp.taskRunner = 'gulpfile.js';
+
+    helpers.mockPrompt(this.app, withCliGulp);
+
+    this.app.run(function() {
+      assert.fileContent('package.json', /"test": "gulp test"/);
+      assert.file(expected);
+      assert.fileContent('package.json', /"name": "mymodule"/);
+      done();
+    });
+  });
+
+  it('creates expected files without cli with Grunt', function(done) {
+    var expected = defaultFile.concat('Gruntfile.js');
+
+    var withoutCliGrunt = commonConfig;
+    withoutCliGrunt.browser = true;
+    withoutCliGrunt.cli = false;
+    withoutCliGrunt.taskRunner = 'Gruntfile.js';
+
+    helpers.mockPrompt(this.app, withoutCliGrunt);
+
+    this.app.run(function() {
+      assert.fileContent('package.json', /"url": "octocat\/mymodule\/issues"/);
+      assert.file(expected);
+      assert.fileContent('package.json', /"name": "mymodule"/);
+      done();
+    });
+  });
+
+  it('creates expected files with gulp, support cli', function(done) {
+    var expected = defaultFile.concat('gulpfile.js', 'cli.js');
+
+    var withCliGulp = commonConfig;
+    withCliGulp.browser = true;
     withCliGulp.cli = true;
     withCliGulp.taskRunner = 'gulpfile.js';
 
@@ -61,34 +96,7 @@ describe('node generator', function() {
 
     this.app.run(function() {
       assert.file(expected);
-      assert.fileContent('package.json', /"name": "mymodule"/);
       assert.deepEqual(require('./temp/cli.js'), {});
-      done();
-    });
-
-  });
-
-  it('creates expected files without cli with Grunt', function(done) {
-    var expected = [
-      'index.js',
-      'test/test.js',
-      '.gitignore',
-      '.jshintrc',
-      '.travis.yml',
-      'Gruntfile.js',
-      'package.json',
-      'README.md'
-    ];
-
-    var withoutCliGrunt = commonConfig;
-    withoutCliGrunt.cli = false;
-    withoutCliGrunt.taskRunner = 'Gruntfile.js';
-
-    helpers.mockPrompt(this.app, withoutCliGrunt);
-
-    this.app.run(function() {
-      assert.file(expected);
-      assert.fileContent('package.json', /"name": "mymodule"/);
       done();
     });
   });
