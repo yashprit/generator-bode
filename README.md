@@ -7,7 +7,7 @@
     | $$$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$
     |_______/  \______/  \_______/ \_______/
 
-# Bode Generator [![Build Status](https://travis-ci.org/yashprit/generator-bode.svg?branch=master)](https://travis-ci.org/yashprit/generator-bode)  [![NPM version](https://badge.fury.io/js/generator-bode.svg)](https://www.npmjs.com/package/generator-bode)   [![David DM](https://david-dm.org/yashprit/generator-bode.svg)](https://david-dm.org/yashprit/generator-bode)  [![Coverage Status](https://coveralls.io/repos/yashprit/generator-bode/badge.svg)](https://coveralls.io/r/yashprit/generator-bode)
+# Bode Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![David DM][daviddm-image]][daviddm-url] [![Coverage Status][coverall-image]][coverall-url]
 
 Yeoman generator for bootstrapping npm package. Inspired by [generator-node](https://github.com/yeoman/generator-node)
 
@@ -32,6 +32,21 @@ $ yo bode
 *Note that this template will generate files in the current directory, so be sure to change to a new directory first if you don't want to overwrite existing files.*
 
 
+###Report Issue
+
+You have got bug file [!here][issue-url]]
+
 ## License
 
-MIT © Yashprit
+MIT © [Yashprit](http://yashprit.github.io/)
+
+
+[issue-url]: https://github.com/yashprit/generator-bode/issues
+[npm-url]: https://www.npmjs.com/package/generator-bode
+[npm-image]: https://badge.fury.io/js/generator-bode.svg
+[travis-url]: https://travis-ci.org/yashprit/generator-bode
+[travis-image]: https://travis-ci.org/yashprit/generator-bode.svg?branch=master
+[daviddm-url]: https://david-dm.org/yashprit/generator-bode
+[daviddm-image]: https://david-dm.org/yashprit/generator-bode.svg
+[coverall-image]: https://coveralls.io/repos/yashprit/generator-bode/badge.svg
+[coverall-url]: https://coveralls.io/r/yashprit/generator-bode
