@@ -32,7 +32,7 @@ $ yo bode
 *Note that this template will generate files in the current directory, so be sure to change to a new directory first if you don't want to overwrite existing files.*
 
 
-###Report Issue
+## Report Issue
 
 Bug [here](https://github.com/yashprit/generator-bode/issues)
 
