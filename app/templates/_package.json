@@ -49,9 +49,9 @@
 		"browserify": "^7.0.0"<% } %>
   },
   "scripts": {
-		<% if (props.taskRunner === 'Gruntfile.js') { %>"test": "grunt test",<% } %>
-		<% if (props.taskRunner === 'gulpfile.js') { %>"test": "gulp test",<% } %>
-		<% if (props.browser) { %>"browser": "browserify index.js > browser.js"<% } %>
+		<% if (props.browser) { %>"browser": "browserify index.js > browser.js",<% } %>
+		<% if (props.taskRunner === 'Gruntfile.js') { %>"test": "grunt test"<% } %>
+		<% if (props.taskRunner === 'gulpfile.js') { %>"test": "gulp test"<% } %>
 	}<% if (props.cli) { %>,
   "bin": { 
 		"<%= slugname %>": "cli.js"

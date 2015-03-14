@@ -86,7 +86,7 @@ module.exports = yeoman.generators.Base.extend({
       message: 'License',
       default: 'MIT'
     }, {
-      name: 'githubUserName',
+      name: 'githubUsername',
       message: 'GitHub username',
       store: true
     }, {
@@ -182,7 +182,8 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   projectfiles: function () {
-    this.template('index.js', 'index.js');
+		this.mkdir('lib');
+    this.template('index.js', 'lib/index.js');
     this.template('test/test.js', 'test/test.js');
   },
 

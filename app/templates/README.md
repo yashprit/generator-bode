@@ -30,7 +30,7 @@ $ npm run browser
 
 
 ##Report Issue 
-(Report Issue)[issue-url]
+[issue-url]
 
 
 ## License
