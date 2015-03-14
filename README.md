@@ -34,14 +34,14 @@ $ yo bode
 
 ###Report Issue
 
-You have got bug file [!here][issue-url]]
+Bug [here](https://github.com/yashprit/generator-bode/issues)
 
 ## License
 
 MIT © [Yashprit](http://yashprit.github.io/)
 
 
-[issue-url]: https://github.com/yashprit/generator-bode/issues
+[issue-url]:
 [npm-url]: https://www.npmjs.com/package/generator-bode
 [npm-image]: https://badge.fury.io/js/generator-bode.svg
 [travis-url]: https://travis-ci.org/yashprit/generator-bode
