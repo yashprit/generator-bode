@@ -1,17 +1,11 @@
 #!/usr/bin/env node
 
 'use strict';
-var meow = require('meow');
-var <%= safeSlugname %> = require('./lib');
+var argv = require('minimist')(process.argv.slice(2)); <%
+var path = './lib'
+if (props.taskRunner === 'simple.js') {
+  path = './'
+} %>
+var <%= safeSlugname %> = require( <%= path %> );
 
-var cli = meow({
-  help: [
-    'Usage',
-    '  <%= slugname %> <input>',
-    '',
-    'Example',
-    '  <%= slugname %> Unicorn'
-  ].join('\n')
-});
-
-<%= safeSlugname %> (cli.input[0]);
+console.log(argv);

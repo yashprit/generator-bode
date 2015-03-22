@@ -22,8 +22,12 @@
     "url": "<%= repoUrl %>"
   },
   "license": "<%= props.license %>",
-  "files": [
-    "lib/index.js" <%
+  "files": [ <%
+    if (props.taskRunner === 'simple.js') { %>
+        "index.js" <%
+    } else { %>
+        "lib/index.js" <%
+    } %> <%
     if (props.cli) { %> ,
         "cli.js" <%
     } %>
@@ -36,10 +40,14 @@
   ],
   "dependencies": { <%
     if (props.cli) { %>
-        "meow": "^2.0.0" <%
+        "minimist": "^1.1.1" <%
     } %>
   },
   "devDependencies": { <%
+    if (props.taskRunner === 'simple.js') { %>
+        "mocha": "*" <%
+    } %>
+      <%
     if (props.taskRunner === 'Gruntfile.js') { %>
         "grunt-cli": "^0.1.13",
       "grunt-contrib-jshint": "^0.10.0",
@@ -83,6 +91,9 @@
     } %>
       <%
     if (props.taskRunner === 'gulpfile.js') { %> "test": "gulp test" <%
+    } %>
+      <%
+    if (props.taskRunner === 'simple.js') { %> "test": "mocha" <%
     } %>
   } <%
   if (props.cli) { %> ,

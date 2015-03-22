@@ -121,6 +121,8 @@ module.exports = yeoman.generators.Base.extend({
         name: 'gulpfile'
       }, {
         name: 'Gruntfile'
+      }, {
+        name: 'simple'
       }],
       filter: function(val) {
         return val + ".js"
@@ -135,6 +137,8 @@ module.exports = yeoman.generators.Base.extend({
         name: 'mocha_chai'
       }, {
         name: 'jasmine'
+      }, {
+        name: 'no_test'
       }],
       filter: function(val) {
         return val
@@ -181,7 +185,9 @@ module.exports = yeoman.generators.Base.extend({
     this.template('jshintrc', '.jshintrc');
 
     var fileName = this.props.taskRunner
-    this.template(fileName, fileName);
+    if (fileName !== 'simple.js') {
+      this.template(fileName, fileName);
+    }
 
     this.template('README.md', 'README.md');
 
@@ -194,13 +200,21 @@ module.exports = yeoman.generators.Base.extend({
     if (license === 'MIT') {
       this.template('MIT_LICENSE', 'LICENSE');
     }
-    this.copy('CONTRIBUTING.md', 'CONTRIBUTING.md');
+    if (fileName !== 'simple.js') {
+      this.copy('CONTRIBUTING.md', 'CONTRIBUTING.md');
+    }
   },
 
   projectfiles: function() {
-    this.mkdir('lib');
-    this.template('index.js', 'lib/index.js');
-    this.template('test/test.js', 'test/test.js');
+    if (this.props.taskRunner === "simple.js") {
+      this.mkdir('lib');
+      this.template('index.js', 'index.js');
+      this.template('test/test.js', 'test.js');
+    } else {
+      this.mkdir('lib');
+      this.template('index.js', 'lib/index.js');
+      this.template('test/test.js', 'test/test.js');
+    }
   },
 
   install: function() {

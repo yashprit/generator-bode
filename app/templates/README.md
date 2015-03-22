@@ -12,25 +12,33 @@ $ npm install --save <%= slugname %>
 
 ## Usage
 
+### JavaScript
+
 ```js
 var <%= slugname %> = require('<%= slugname %>');
 
 <%= slugname %>('Rainbow');
 ```<% if (props.cli) { %>
 
+### Command Line reference
+
 ```sh
 $ npm install --global <%= slugname %>
 $ <%= slugname %> --help
 ```<% } %><% if (props.browser) { %>
-
 ```sh
-# creates a browser.js
+
+# Creates a browser.js
 $ npm run browser
 ```<% } %>
 
+## Run Test
+```sh
+npm test
+```
 
-##Report Issue 
-[issue-url]
+## Contribute or Report Issue
+For bugs and feature requests, [please create an issue][issue-url].
 
 
 ## License
