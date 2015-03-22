@@ -2,6 +2,7 @@
 var path = require('path');
 var npmName = require('npm-name');
 var yeoman = require('yeoman-generator');
+var color = require('colors');
 
 module.exports = yeoman.generators.Base.extend({
   init: function() {
@@ -9,21 +10,21 @@ module.exports = yeoman.generators.Base.extend({
 
     var bode = "\n\n" +
       "                                                 dddddddd\n" +
-      "BBBBBBBBBBBBBBBBB                                d::::::d\n" +
-      "B::::::::::::::::B                               d::::::d\n" +
-      "B::::::BBBBBB:::::B                              d::::::d\n" +
-      "BB:::::B     B:::::B                             d:::::d\n" +
-      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n" +
-      "  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n" +
-      "  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n" +
-      "  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n" +
-      "  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n" +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n" +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n" +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n" +
-      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n" +
-      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n" +
-      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n" +
+      "BBBBBBBBBBBBBBBBB                                d::::::d\n".green +
+      "B::::::::::::::::B                               d::::::d\n".green +
+      "B::::::BBBBBB:::::B                              d::::::d\n".green +
+      "BB:::::B     B:::::B                             d:::::d\n".blue +
+      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n".blue +
+      "  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n".blue +
+      "  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n".yellow +
+      "  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n".yellow +
+      "  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n".yellow +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n".red +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n".red +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n".red +
+      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n".green +
+      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n".green +
+      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n".green +
       "BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n";
 
     this.log(bode +

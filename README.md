@@ -7,7 +7,7 @@
     | $$$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$
     |_______/  \______/  \_______/ \_______/
 
-# Bode Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![David DM][daviddm-image]][daviddm-url] [![Coverage Status][coverall-image]][coverall-url]
+# Bode Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![David DM][daviddm-image]][daviddm-url]
 
 Yeoman generator for bootstrapping npm package. Inspired by [generator-node](https://github.com/yeoman/generator-node)
 
@@ -46,5 +46,3 @@ MIT © [Yashprit](http://yashprit.github.io/)
 [travis-image]: https://travis-ci.org/yashprit/generator-bode.svg?branch=master
 [daviddm-url]: https://david-dm.org/yashprit/generator-bode
 [daviddm-image]: https://david-dm.org/yashprit/generator-bode.svg
-[coverall-image]: https://coveralls.io/repos/yashprit/generator-bode/badge.svg
-[coverall-url]: https://coveralls.io/r/yashprit/generator-bode
