@@ -9,27 +9,27 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
 
     var bode = "\n\n" +
-      "                                                 dddddddd\n".red +
-      "BBBBBBBBBBBBBBBBB                                d::::::d\n".red +
-      "B::::::::::::::::B                               d::::::d\n".red +
-      "B::::::BBBBBB:::::B                              d::::::d\n".red +
-      "BB:::::B     B:::::B                             d:::::d\n".red +
-      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n".red +
+      "                                                 dddddddd\n".green +
+      "BBBBBBBBBBBBBBBBB                                d::::::d\n".green +
+      "B::::::::::::::::B                               d::::::d\n".green +
+      "B::::::BBBBBB:::::B                              d::::::d\n".green +
+      "BB:::::B     B:::::B                             d:::::d\n".green +
+      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n".green +
       "  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n".blue +
       "  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n".blue +
       "  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n".blue +
       "  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n".blue +
       "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n".blue +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n".magenta +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n".magenta +
-      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n".magenta +
-      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n".magenta +
-      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n".magenta +
-      "BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n".magenta;
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n".red +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n".red +
+      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n".red +
+      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n".red +
+      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n".red +
+      "BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n".red;
 
     this.log(bode +
-      '\nThe name of your project shouldn\'t contain "node" or "js" and'.red +
-      '\nshould be a unique ID not already in use at npmjs.org.'.red);
+      '\nThe name of your project shouldn\'t contain "node" or "js" and'.magenta +
+      '\nshould be a unique ID not already in use at npmjs.org.'.magenta);
   },
   askForModuleName: function() {
     var done = this.async();
