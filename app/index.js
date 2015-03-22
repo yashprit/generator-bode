@@ -9,39 +9,39 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
 
     var bode = "\n\n" +
-      "                                                 dddddddd\n" +
-      "BBBBBBBBBBBBBBBBB                                d::::::d\n".green +
-      "B::::::::::::::::B                               d::::::d\n".green +
-      "B::::::BBBBBB:::::B                              d::::::d\n".green +
-      "BB:::::B     B:::::B                             d:::::d\n".blue +
-      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n".blue +
+      "                                                 dddddddd\n".red +
+      "BBBBBBBBBBBBBBBBB                                d::::::d\n".red +
+      "B::::::::::::::::B                               d::::::d\n".red +
+      "B::::::BBBBBB:::::B                              d::::::d\n".red +
+      "BB:::::B     B:::::B                             d:::::d\n".red +
+      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n".red +
       "  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n".blue +
-      "  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n".yellow +
-      "  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n".yellow +
-      "  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n".yellow +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n".red +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n".red +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n".red +
-      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n".green +
-      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n".green +
-      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n".green +
-      "BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n";
+      "  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n".blue +
+      "  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n".blue +
+      "  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n".blue +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n".blue +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n".magenta +
+      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n".magenta +
+      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n".magenta +
+      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n".magenta +
+      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n".magenta +
+      "BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n".magenta;
 
     this.log(bode +
-      '\nThe name of your project shouldn\'t contain "node" or "js" and' +
-      '\nshould be a unique ID not already in use at npmjs.org.');
+      '\nThe name of your project shouldn\'t contain "node" or "js" and'.red +
+      '\nshould be a unique ID not already in use at npmjs.org.'.red);
   },
   askForModuleName: function() {
     var done = this.async();
 
     var prompts = [{
       name: 'name',
-      message: 'Module Name',
+      message: 'Module Name'.green,
       default: path.basename(process.cwd()),
     }, {
       type: 'confirm',
       name: 'pkgName',
-      message: 'npm package already exist, please choose another name',
+      message: 'npm package already exist, please choose another name'.green,
       default: true,
       when: function(answers) {
         var done = this.async();
@@ -73,50 +73,50 @@ module.exports = yeoman.generators.Base.extend({
 
     var prompts = [{
       name: 'version',
-      message: 'version(0.0.0)',
+      message: 'version(0.0.0)'.green,
       default: '0.0.1'
     }, {
       name: 'description',
-      message: 'Description',
+      message: 'Description'.green,
       default: 'This is awesome application'
     }, {
       name: 'homepage',
-      message: 'Homepage'
+      message: 'Homepage'.green
     }, {
       name: 'license',
-      message: 'License',
+      message: 'License'.green,
       default: 'MIT'
     }, {
       name: 'githubUsername',
-      message: 'GitHub username',
+      message: 'GitHub username'.green,
       store: true
     }, {
       name: 'authorName',
-      message: 'Author\'s Name',
+      message: 'Author\'s Name'.green,
       store: true
     }, {
       name: 'authorEmail',
-      message: 'Author\'s Email',
+      message: 'Author\'s Email'.green,
       store: true
     }, {
       name: 'authorUrl',
-      message: 'Author\'s Homepage',
+      message: 'Author\'s Homepage'.green,
       store: true
     }, {
       name: 'keywords',
-      message: 'Give me some Keywords (comma to split)'
+      message: 'Give me some Keywords (comma to split)'.green
     }, {
       type: 'confirm',
       name: 'cli',
-      message: 'Lets run it from CLI'
+      message: 'Lets run it from CLI'.green
     }, {
       type: 'confirm',
       name: 'browser',
-      message: 'Shall I add Browserify support?'
+      message: 'Shall I add Browserify support?'.green
     }, {
       type: "list",
       name: 'taskRunner',
-      message: 'Select Task runner',
+      message: 'Select Task runner'.green,
       choices: [{
         name: 'gulpfile'
       }, {
@@ -128,7 +128,7 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       type: "list",
       name: 'test',
-      message: 'Choose your test suite',
+      message: 'Choose your test suite'.green,
       choices: [{
         name: 'node_unit'
       }, {
