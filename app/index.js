@@ -166,6 +166,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('travis.yml', '.travis.yml');
+    this.copy('.npmignore', '.npmignore');
 
     this.props.unit = {
       "node_unit": true,
