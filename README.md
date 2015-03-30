@@ -1,4 +1,6 @@
-     /$$$$$$$                  /$$
+# Bode Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![David DM][daviddm-image]][daviddm-url]
+
+    /$$$$$$$                  /$$
     | $$__  $$                | $$
     | $$  \ $$  /$$$$$$   /$$$$$$$  /$$$$$$
     | $$$$$$$  /$$__  $$ /$$__  $$ /$$__  $$
@@ -7,21 +9,29 @@
     | $$$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$
     |_______/  \______/  \_______/ \_______/
 
-# Bode Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![David DM][daviddm-image]][daviddm-url]
-
-Yeoman generator for bootstrapping npm package. Inspired by [generator-node](https://github.com/yeoman/generator-node)
-
-> Create a Node.js module
+> Scaffold out a Node.js module
 
 ![ScreenShot](https://raw.github.com/yashprit/generator-bode/master/screenshot.png)
 
+Yeoman generator for bootstrapping npm package with following options
+    1. Gulp
+    2. Grunt
+    3. **No build tool
+
+ ** inspired by [Sindre Sorhus node-module-boilerplate](https://github.com/sindresorhus/node-module-boilerplate)
+
+for unit test cases, following options are avaible
+    1. Nodeunit
+    2. Mocha with chai
+    3. no test
+
+> Github scaffold options is also available i.e. `git init`, `git remote add` and creating repo on github
 
 ## Install
 
 ```sh
 $ npm install --global generator-bode
 ```
-
 
 ## Usage
 
@@ -31,10 +41,13 @@ $ yo bode
 
 *Note that this template will generate files in the current directory, so be sure to change to a new directory first if you don't want to overwrite existing files.*
 
+## Run Test
+```sh
+npm test
+```
 
-## Report Issue
-
-Bug [here](https://github.com/yashprit/generator-bode/issues)
+## Contribute or Report Issue
+For bugs and feature requests, [please create an issue][issue-url].
 
 ## License
 

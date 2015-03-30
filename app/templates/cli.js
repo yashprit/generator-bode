@@ -6,6 +6,6 @@ var path = './lib'
 if (props.taskRunner === 'simple.js') {
   path = './'
 } %>
-var <%= safeSlugname %> = require( <%= path %> );
+var <%= safeSlugname %> = require('<%= path %>');
 
 console.log(argv);

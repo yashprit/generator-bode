@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "colors": "^1.0.3",
+    "git-scope-config": "0.0.0-beta",
+    "github-init": "0.0.0-beta",
     "npm-name": "^1.0.3",
     "yeoman-generator": "^0.18.9"
   },
