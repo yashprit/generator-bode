@@ -287,10 +287,10 @@ module.exports = yeoman.generators.Base.extend({
           reponame: self.slugname,
           callback: function(err, data) {
             if (err) {
-              self.log(err);
+              self.log(err.red);
               return;
             }
-            self.log(data);
+            self.log("I am all done".green);
           }
         })
       }
