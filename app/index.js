@@ -265,7 +265,6 @@ module.exports = yeoman.generators.Base.extend({
 
   projectfiles: function() {
     if (this.props.taskRunner === "simple.js") {
-      this.mkdir('lib');
       this.template('index.js', 'index.js');
       this.template('test/test.js', 'test.js');
     } else {
