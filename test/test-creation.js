@@ -51,6 +51,7 @@ describe('node generator', function() {
     withCliGulp.browser = false;
     withCliGulp.cli = false;
     withCliGulp.taskRunner = 'gulpfile.js';
+    withCliGulp.git = false;
 
     helpers.mockPrompt(this.app, withCliGulp);
 
@@ -69,6 +70,7 @@ describe('node generator', function() {
     withoutCliGrunt.browser = true;
     withoutCliGrunt.cli = false;
     withoutCliGrunt.taskRunner = 'Gruntfile.js';
+    withoutCliGrunt.git = false;
 
     helpers.mockPrompt(this.app, withoutCliGrunt);
 
@@ -87,10 +89,11 @@ describe('node generator', function() {
     withCliGulp.browser = true;
     withCliGulp.cli = true;
     withCliGulp.taskRunner = 'gulpfile.js';
+    withCliGulp.git = false;
 
     helpers.mockPrompt(this.app, withCliGulp);
 
-    shelljs.exec('npm install meow', {
+    shelljs.exec('npm install minimist', {
       silent: true
     });
 

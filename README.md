@@ -14,16 +14,14 @@
 ![ScreenShot](https://raw.github.com/yashprit/generator-bode/master/screenshot.png)
 
 Yeoman generator for bootstrapping npm package with following options
-    1. Gulp
-    2. Grunt
-    3. **No build tool
-
- ** inspired by [Sindre Sorhus node-module-boilerplate](https://github.com/sindresorhus/node-module-boilerplate)
+    * Gulp
+    * Grunt
+    * None *inspired by [Sindre Sorhus node-module-boilerplate](https://github.com/sindresorhus/node-module-boilerplate)*
 
 for unit test cases, following options are avaible
-    1. Nodeunit
-    2. Mocha with chai
-    3. no test
+    *Nodeunit
+    *Mocha with chai
+    *None
 
 > Github scaffold options is also available i.e. `git init`, `git remote add` and creating repo on github
 

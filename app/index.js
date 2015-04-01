@@ -280,18 +280,20 @@ module.exports = yeoman.generators.Base.extend({
       bower: false,
       skipInstall: this.options['skip-install'],
       callback: function(err) {
-        gitHubInit({
-          username: self.githubUsername,
-          token: self.githubToken,
-          reponame: self.slugname,
-          callback: function(err, data) {
-            if (err) {
-              self.log(err.red);
-              return;
+        if (self.githubToken) {
+          gitHubInit({
+            username: self.githubUsername,
+            token: self.githubToken,
+            reponame: self.slugname,
+            callback: function(err, data) {
+              if (err) {
+                self.log(err.red);
+                return;
+              }
+              self.log("I am all done".green);
             }
-            self.log("I am all done".green);
-          }
-        })
+          })
+        }
       }
     });
   }
