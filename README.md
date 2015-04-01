@@ -46,7 +46,7 @@ npm test
 ```
 
 ## Contribute or Report Issue
-For bugs and feature requests, [please create an issue][issue-url].
+For bugs and feature requests, [please create an issue](https://github.com/yashprit/generator-bode/issues).
 
 ## License
 
