@@ -1,6 +1,6 @@
 {
   "name": "generator-bode",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Yeoman generator for bootstrapping node or npm package",
   "bugs": {
     "url": "https://github.com/yashprit/bode/issues"
@@ -28,15 +28,15 @@
     "cli"
   ],
   "dependencies": {
-    "colors": "^1.0.3",
+    "colors": "^1.1.2",
     "git-scope-config": "0.0.0",
     "github-init": "0.0.0",
-    "npm-name": "^1.0.3",
-    "yeoman-generator": "^0.18.9"
+    "npm-name": "^3.0.0",
+    "yeoman-generator": "^1.1.1"
   },
   "devDependencies": {
-    "shelljs": "^0.3.0",
-    "mocha": "^2.1.0"
+    "shelljs": "^0.7.7",
+    "mocha": "^3.2.0"
   },
   "engines": {
     "node": ">=0.10.0",
