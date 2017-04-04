@@ -8,30 +8,29 @@ const askName = require('inquirer-npm-name');
 const chalk = require('chalk');
 const path = require('path');
 const pkgJson = require('../../package.json');
-const color = require('colors');
 const gitScopeConfig = require('git-scope-config')({
-  scope: "global"
+  scope: 'global'
 });
 const gitHubInit = require('github-init');
 
-const bode = "\n\n" +
-      "                                                 dddddddd\n".yellow +
-      "BBBBBBBBBBBBBBBBB                                d::::::d\n".yellow +
-      "B::::::::::::::::B                               d::::::d\n".yellow +
-      "B::::::BBBBBB:::::B                              d::::::d\n".yellow +
-      "BB:::::B     B:::::B                             d:::::d\n".green +
-      "  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n".green +
-      "  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n".green +
-      "  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n".green +
-      "  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n" +
-      "  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n".blue +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n".blue +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n".blue +
-      "  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n".blue +
-      "BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n".red +
-      "B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n".red +
-      "B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n".red +
-      "BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n".red;
+const bode = '\n\n' +
+      '                                                 dddddddd\n'.yellow +
+      'BBBBBBBBBBBBBBBBB                                d::::::d\n'.yellow +
+      'B::::::::::::::::B                               d::::::d\n'.yellow +
+      'B::::::BBBBBB:::::B                              d::::::d\n'.yellow +
+      'BB:::::B     B:::::B                             d:::::d\n'.green +
+      '  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n'.green +
+      '  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n'.green +
+      '  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n'.green +
+      '  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n' +
+      '  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n'.blue +
+      '  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n'.blue +
+      '  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n'.blue +
+      '  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n'.blue +
+      'BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n'.red +
+      'B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n'.red +
+      'B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n'.red +
+      'BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n'.red;
 
 module.exports = class extends Generator {
   constuctor(args, options) {
@@ -104,7 +103,7 @@ module.exports = class extends Generator {
     });
   }
 
-  initializing(){
+  initializing() {
     this.pkg = require('../package.json');
 
     this.log(bode +
@@ -116,7 +115,7 @@ module.exports = class extends Generator {
       description: this.pkg.description,
       version: this.pkg.version,
       homepage: this.pkg.homepage
-    }
+    };
 
     if (_.isObject(this.pkg.author)) {
       this.props.authorName = this.pkg.author.name;
@@ -130,7 +129,7 @@ module.exports = class extends Generator {
     }
   }
 
-  _askForModuleName(){
+  _askForModuleName() {
     if (this.pkg.name || this.options.name) {
       this.props.name = this.pkg.name || _.kebabCase(this.options.name);
       return Promise.resolve();
@@ -138,7 +137,7 @@ module.exports = class extends Generator {
 
     return askName({
       name: 'name',
-      message: 'Module Name',
+      message: chalk.green('Module Name'),
       default: path.basename(process.cwd()),
       filter: _.kebabCase,
       validate(str) {
@@ -149,52 +148,47 @@ module.exports = class extends Generator {
     });
   }
 
-  _askFor(){
+  _askFor() {
     const prompts = [{
       name: 'description',
-      message: 'Description',
+      message: chalk.green('Description'),
       when: !this.props.description
     }, {
       name: 'homepage',
-      message: 'Project homepage url',
+      message: chalk.green('Project homepage url'),
       when: !this.props.homepage
     }, {
       name: 'authorName',
-      message: 'Author\'s Name',
+      message: chalk.green('Author\'s Name'),
       when: !this.props.authorName,
       default: this.user.git.name(),
       store: true
     }, {
       name: 'authorEmail',
-      message: 'Author\'s Email',
+      message: chalk.green('Author\'s Email'),
       when: !this.props.authorEmail,
       default: this.user.git.email(),
       store: true
     }, {
       name: 'authorUrl',
-      message: 'Author\'s Homepage',
+      message: chalk.green('Author\'s Homepage'),
       when: !this.props.authorUrl,
       store: true
     }, {
       name: 'keywords',
-      message: 'Package keywords (comma to split)',
+      message: chalk.green('Package keywords (comma to split)'),
       when: !this.pkg.keywords,
       filter(words) {
         return words.split(/\s*,\s*/g);
       }
     }, {
-      name: 'includeCoveralls',
-      type: 'confirm',
-      message: 'Send coverage reports to coveralls',
-      when: this.options.coveralls === undefined
-    }, {
       type: 'confirm',
       name: 'browser',
-      message: 'Shall I add Browserify support?'.green
+      message: chalk.green('Shall I add Browserify support?')
     }, {
-      type: "list",
+      type: 'list',
       name: 'test',
-      message: 'Choose your test suite'.green,
+      message: chalk.green('Choose your test suite'),
       choices: [{
         name: 'node_unit'
       }, {
@@ -204,13 +198,13 @@ module.exports = class extends Generator {
       }, {
         name: 'no_test'
       }],
-      filter: function(val) {
-        return val
+      filter: function (val) {
+        return val;
       }
-    },{
-      type: "list",
+    }, {
+      type: 'list',
       name: 'taskRunner',
-      message: 'Select Task runner'.green,
+      message: chalk.green('Select Task runner'),
       choices: [{
         name: 'gulpfile'
       }, {
@@ -218,9 +212,14 @@ module.exports = class extends Generator {
       }, {
         name: 'simple'
       }],
-      filter: function(val) {
-        return val + ".js"
+      filter: function (val) {
+        return val + '.js';
       }
+    }, {
+      name: 'includeCoveralls',
+      type: 'confirm',
+      message: chalk.green('Send coverage reports to coveralls'),
+      when: this.options.coveralls === undefined
     }];
 
     return this.prompt(prompts).then(props => {
@@ -228,65 +227,73 @@ module.exports = class extends Generator {
     });
   }
 
-  _askForGithubAccount(){
-    var done = this.async();
-    var githubToken;
+  _askForGithubAccount() {
+    if (this.options.githubAccount) {
+      this.props.githubAccount = this.options.githubAccount;
+      return Promise.resolve();
+    }
 
-    var prompt = [{
-      type: 'confirm',
-      name: 'git',
-      message: "create github repo with module name?".green,
-      default: true,
+    return githubUsername(this.props.authorEmail)
+      .then(username => username, () => '')
+      .then(username => {
+        return this.prompt({
+          name: 'githubAccount',
+          message: 'GitHub username or organization',
+          default: username
+        }).then(prompt => {
+          this.props.githubAccount = prompt.githubAccount;
+        });
+      });
+  }
+
+  _askForGitRepoCreation() {
+    const prompt = [{
+      name: 'github',
+      message: chalk.green('Create github repo with module name?'),
+      required: false,
+      default: false
     }, {
-      when: function(response) {
-        var done = this.async();
-        if (response.git) {
-          gitScopeConfig.get('github.token', function(err, token) {
-            if (err) {
-              done(true);
-              return;
-            }
-            if (token) {
-              githubToken = token;
-              done(false);
-              return;
-            }
-          });
-        } else {
-          done(false);
-          return;
-        }
-      },
       type: 'message',
       name: 'token',
-      message: "Github token not found, create new from here".red + " https://github.com/settings/applications".blue
-    }]
+      message: chalk.red('Github token not found, create new from here') + chalk.blue('https://github.com/settings/applications'),
+      when: function (response) {
+        if (response.git) {
+          return gitScopeConfig.get('github.token', (err, token) => {
+            if (err) {
+              return Promise.resolve(true);
+            }
 
-    this.prompt(prompt, function(props) {
-      var _this = this;
-      if (props.token) {
-        gitScopeConfig.set('github.token', props.token, function(err, status) {
-          if (err) {
-            done();
-            return;
-          }
-          _this.githubToken = props.token;
-          done();
-        })
-      } else {
-        this.githubToken = githubToken;
-        done();
+            if (token) {
+              this.githubToken = token;
+              return Promise.resolve(false);
+            }
+          });
+        }
+        return false;
       }
-    }.bind(this));
+    }];
+
+    return this.prompt(prompts).then(props => {
+      if (props.token) {
+        return gitScopeConfig.set('github.token', props.token, (err, status) => {
+          if (!err) {
+            this.githubToken = props.token;
+          }
+          return Promise.resolve();
+        });
+      }
+      return Promise.resolve();
+    });
   }
 
-  prompting(){
+  prompting() {
     return this._askForModuleName()
       .then(this._askFor.bind(this))
-      .then(this._askForGithubAccount.bind(this));
+      .then(this._askForGithubAccount.bind(this))
+      .then(this._askForGitRepoCreation.bind(this));
   }
 
-  writing(){
+  writing() {
     const currentPkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
     const pkg = extend({
@@ -318,7 +325,7 @@ module.exports = class extends Generator {
     this.fs.writeJSON(this.destinationPath('package.json'), pkg);
   }
 
-  default(){
+  default() {
     if (this.options.travis) {
       let options = {config: {}};
       if (this.props.includeCoveralls) {
@@ -360,8 +367,9 @@ module.exports = class extends Generator {
         email: this.props.authorEmail,
         website: this.props.authorUrl
       });
+    }
 
-      if (!this.fs.exists(this.destinationPath('README.md'))) {
+    if (!this.fs.exists(this.destinationPath('README.md'))) {
       this.composeWith(require.resolve('../readme'), {
         name: this.props.name,
         description: this.props.description,
@@ -374,11 +382,30 @@ module.exports = class extends Generator {
     }
   }
 
-  installing(){
-    this.npmInstall();
+  installing() {
+    const self = this;
+    this.installDependencies({
+      npm: true,
+      callback: function (err) {
+        if (self.githubToken) {
+          gitHubInit({
+            username: self.githubUsername,
+            token: self.githubToken,
+            reponame: self.name,
+            callback: function (err, data) {
+              if (err) {
+                self.log(err.red);
+                return;
+              }
+              self.log('I am all done'.green);
+            }
+          });
+        }
+      }
+    });
   }
 
-  end(){
+  end() {
     this.log('Thanks for using Yeoman.');
 
     if (this.options.travis) {
