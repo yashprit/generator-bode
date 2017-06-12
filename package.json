@@ -12,12 +12,11 @@
     "name": "Yashprit",
     "email": "yashprit@yashprit.com"
   },
+  "files": [
+    "index.js",
+    "generators"
+  ],
   "main": "app/index.js",
-  "scripts": {
-    "pretest": "eslint . --fix",
-    "test": "jest",
-    "prepublish": "nsp check"
-  },
   "keywords": [
     "yeoman-generator",
     "generator-bode",
@@ -43,15 +42,21 @@
     "chalk": "^1.1.3",
     "generator-jest": "^1.2.0",
     "generator-license": "^5.1.0",
-    "generator-travis": "^1.1.3",
+    "generator-travis": "^1.5.1",
     "git-remote-origin-url": "^2.0.0",
+    "git-scope-config": "^1.1.6",
+    "github-init": "^2.0.0",
     "github-username": "^3.0.0",
     "inquirer-npm-name": "^2.0.0",
     "lodash": "^4.17.4",
     "parse-author": "^2.0.0",
-    "yeoman-generator": "^1.1.1",
-    "git-scope-config": "^0.2.0",
-    "github-init": "^1.0.0"
+    "yeoman-generator": "^1.1.1"
+  },
+  "engines": {
+    "node": ">=5.0.0"
+  },
+  "scripts": {
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "xo-space",
@@ -63,9 +68,5 @@
   "license": "MIT",
   "jest": {
     "testEnvironment": "node"
-  },
-  "files": [
-    "app"
-  ],
-  "license": "MIT"
+  }
 }

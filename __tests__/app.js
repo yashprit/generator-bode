@@ -3,7 +3,7 @@ const _ = require('lodash');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('node:app', () => {
+describe('bode:app', () => {
   beforeEach(() => {
     jest.mock('npm-name', () => {
       return () => Promise.resolve(true);
@@ -22,7 +22,7 @@ describe('node:app', () => {
   describe('running on new project', () => {
     it('scaffold a full project', () => {
       const answers = {
-        name: 'generator-node',
+        name: 'generator-bode',
         description: 'A node generator',
         homepage: 'http://yeoman.io',
         githubAccount: 'yeoman',
@@ -30,6 +30,7 @@ describe('node:app', () => {
         authorEmail: 'hi@yeoman.io',
         authorUrl: 'http://yeoman.io',
         keywords: ['foo', 'bar'],
+        test: 'node_unit',
         includeCoveralls: true
       };
       return helpers.run(require.resolve('../generators/app'))
@@ -42,16 +43,16 @@ describe('node:app', () => {
             '.gitattributes',
             'README.md',
             'lib/index.js',
-            'lib/__tests__/generatorNode.test.js'
+            'lib/__tests__/generatorBode.test.js'
           ]);
 
           assert.file('package.json');
           assert.jsonFileContent('package.json', {
-            name: 'generator-node',
+            name: 'generator-bode',
             version: '0.0.0',
             description: answers.description,
             homepage: answers.homepage,
-            repository: 'yeoman/generator-node',
+            repository: 'yeoman/generator-bode',
             author: {
               name: answers.authorName,
               email: answers.authorEmail,
@@ -63,11 +64,11 @@ describe('node:app', () => {
           });
 
           assert.file('README.md');
-          assert.fileContent('README.md', 'const generatorNode = require(\'generator-node\');');
+          assert.fileContent('README.md', 'const generatorBode = require(\'generator-bode\');');
           assert.fileContent('README.md', '> A node generator');
-          assert.fileContent('README.md', '$ npm install --save generator-node');
+          assert.fileContent('README.md', '$ npm install --save generator-bode');
           assert.fileContent('README.md', '© [The Yeoman Team](http://yeoman.io)');
-          assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yeoman/generator-node.svg?branch=master');
+          assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yeoman/generator-bode.svg?branch=master');
           assert.fileContent('README.md', 'coveralls');
 
           assert.fileContent('.travis.yml', '| coveralls');
@@ -81,19 +82,19 @@ describe('node:app', () => {
         version: '1.0.34',
         description: 'lots of fun',
         homepage: 'http://yeoman.io',
-        repository: 'yeoman/generator-node',
+        repository: 'yeoman/generator-bode',
         author: 'The Yeoman Team',
         files: ['lib'],
         keywords: ['bar']
       };
       return helpers.run(require.resolve('../generators/app'))
-        .withPrompts({name: 'generator-node'})
+        .withPrompts({name: 'generator-bode'})
         .on('ready', gen => {
           gen.fs.writeJSON(gen.destinationPath('package.json'), pkg);
           gen.fs.write(gen.destinationPath('README.md'), 'foo');
         })
         .then(() => {
-          const newPkg = _.extend({name: 'generator-node'}, pkg);
+          const newPkg = _.extend({name: 'generator-bode'}, pkg);
           assert.jsonFileContent('package.json', newPkg);
           assert.fileContent('README.md', 'foo');
         });

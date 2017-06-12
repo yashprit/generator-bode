@@ -14,26 +14,27 @@ const gitScopeConfig = require('git-scope-config')({
 const gitHubInit = require('github-init');
 
 const bode = '\n\n' +
-      '                                                 dddddddd\n'.yellow +
-      'BBBBBBBBBBBBBBBBB                                d::::::d\n'.yellow +
-      'B::::::::::::::::B                               d::::::d\n'.yellow +
-      'B::::::BBBBBB:::::B                              d::::::d\n'.yellow +
-      'BB:::::B     B:::::B                             d:::::d\n'.green +
-      '  B::::B     B:::::B   ooooooooooo       ddddddddd:::::d     eeeeeeeeeeee\n'.green +
-      '  B::::B     B:::::B oo:::::::::::oo   dd::::::::::::::d   ee::::::::::::ee\n'.green +
-      '  B::::BBBBBB:::::B o:::::::::::::::o d::::::::::::::::d  e::::::eeeee:::::ee\n'.green +
-      '  B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd:::::d e::::::e     e:::::e\n' +
-      '  B::::BBBBBB:::::B o::::o     o::::od::::::d    d:::::d e:::::::eeeee::::::e\n'.blue +
-      '  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::::::::::::e\n'.blue +
-      '  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e::::::eeeeeeeeeee\n'.blue +
-      '  B::::B     B:::::Bo::::o     o::::od:::::d     d:::::d e:::::::e\n'.blue +
-      'BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::dde::::::::e\n'.red +
-      'B:::::::::::::::::B o:::::::::::::::o d:::::::::::::::::d e::::::::eeeeeeee\n'.red +
-      'B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd::::d  ee:::::::::::::e\n'.red +
-      'BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   ddddd    eeeeeeeeeeeeee\n'.red;
+  chalk.yellow('                                                 ddddddd\n') +
+  chalk.yellow('BBBBBBBBBBBBBBBBB                                d:::::d\n') +
+  chalk.yellow('B::::::::::::::::B                               d:::::d\n') +
+  chalk.yellow('B::::::BBBBBB:::::B                              d:::::d\n') +
+  chalk.green('BB:::::B     B:::::B                             d:::::d\n') +
+  chalk.green(' B::::B     B:::::B   ooooooooooo       dddddddddd:::::d     eeeeeeeeeeee\n') +
+  chalk.green(' B::::B     B:::::B oo:::::::::::oo   dd:::::::::::::::d   ee::::::::::::ee\n') +
+  chalk.green(' B::::BBBBBB:::::B o:::::::::::::::o d:::::::::::::::::d  e::::::eeeee:::::ee\n') +
+  chalk.green(' B:::::::::::::BB  o:::::ooooo:::::od:::::::ddddd::::::d e::::::e     e:::::e\n') +
+  chalk.blue(' B::::BBBBBB:::::B o::::o     o::::od::::::d    d::::::d e:::::::eeeee::::::e\n') +
+  chalk.blue(' B::::B     B:::::Bo::::o     o::::od:::::d     d::::::d e:::::::::::::::::e\n') +
+  chalk.blue(' B::::B     B:::::Bo::::o     o::::od:::::d     d::::::d e::::::eeeeeeeeeee\n') +
+  chalk.blue(' B::::B     B:::::Bo::::o     o::::od:::::d     d::::::d e:::::::e\n') +
+  chalk.red('BB:::::BBBBBB::::::Bo:::::ooooo:::::od::::::ddddd::::::d e::::::::e\n') +
+  chalk.red('B:::::::::::::::::B o:::::::::::::::o d::::::::::::::::d e::::::::eeeeeeee\n') +
+  chalk.red('B::::::::::::::::B   oo:::::::::::oo   d:::::::::ddd:::d  ee:::::::::::::e\n') +
+  chalk.red('BBBBBBBBBBBBBBBBB      ooooooooooo      ddddddddd   dddd    eeeeeeeeeeeeee\n');
 
 module.exports = class extends Generator {
-  constuctor(args, options) {
+
+  constructor(args, options) {
     super(args, options);
 
     this.option('travis', {
@@ -104,11 +105,11 @@ module.exports = class extends Generator {
   }
 
   initializing() {
-    this.pkg = require('../package.json');
+    this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
     this.log(bode +
-      '\nThe name of your project shouldn\'t contain "node" or "js" and'.cyan +
-      '\nshould be a unique ID not already in use at npmjs.org.'.cyan);
+      chalk.cyan('\nThe name of your project shouldn\'t contain "node" or "js" and') +
+      chalk.cyan('\nshould be a unique ID not already in use at npmjs.org.'));
 
     this.props = {
       name: this.pkg.name,
@@ -189,16 +190,17 @@ module.exports = class extends Generator {
       type: 'list',
       name: 'test',
       message: chalk.green('Choose your test suite'),
+      default: this.props.test,
       choices: [{
-        name: 'node_unit'
+        name: 'Node Unit'
       }, {
-        name: 'mocha_chai'
+        name: 'Mocha Chai'
       }, {
-        name: 'jasmine'
+        name: 'Jasmine'
       }, {
-        name: 'no_test'
+        name: 'None'
       }],
-      filter: function (val) {
+      filter: function(val) {
         return val;
       }
     }, {
@@ -206,13 +208,13 @@ module.exports = class extends Generator {
       name: 'taskRunner',
       message: chalk.green('Select Task runner'),
       choices: [{
-        name: 'gulpfile'
+        name: 'Gulp'
       }, {
-        name: 'Gruntfile'
+        name: 'Grunt'
       }, {
-        name: 'simple'
+        name: 'None'
       }],
-      filter: function (val) {
+      filter: function(val) {
         return val + '.js';
       }
     }, {
@@ -251,33 +253,37 @@ module.exports = class extends Generator {
       name: 'github',
       message: chalk.green('Create github repo with module name?'),
       required: false,
-      default: false
+      default: true,
+      type: 'confirm'
     }, {
       type: 'message',
       name: 'token',
-      message: chalk.red('Github token not found, create new from here') + chalk.blue('https://github.com/settings/applications'),
-      when: function (response) {
-        if (response.git) {
-          return gitScopeConfig.get('github.token', (err, token) => {
-            if (err) {
-              return Promise.resolve(true);
-            }
+      message: chalk.red('Github token not found, create new from here ') + chalk.blue(' https://github.com/settings/applications'),
+      when: (answer) => {
+        if (!answer.github) return true;
 
-            if (token) {
-              this.githubToken = token;
-              return Promise.resolve(false);
+        return new Promise((resolve, reject) => {
+          gitScopeConfig.get('github.token', (err, token) => {
+            if (err) {
+              resolve(true);
+            } else {
+              if (token) {
+                this.props.githubToken = token;
+                resolve(false);
+              } else {
+                resolve(true);
+              }
             }
           });
-        }
-        return false;
+        });
       }
     }];
 
-    return this.prompt(prompts).then(props => {
+    return this.prompt(prompt).then(props => {
       if (props.token) {
         return gitScopeConfig.set('github.token', props.token, (err, status) => {
           if (!err) {
-            this.githubToken = props.token;
+            this.props.githubToken = props.token;
           }
           return Promise.resolve();
         });
@@ -325,9 +331,11 @@ module.exports = class extends Generator {
     this.fs.writeJSON(this.destinationPath('package.json'), pkg);
   }
 
-  default() {
+  default () {
     if (this.options.travis) {
-      let options = {config: {}};
+      let options = {
+        config: {}
+      };
       if (this.props.includeCoveralls) {
         options.config.after_script = 'cat ./coverage/lcov.info | coveralls'; // eslint-disable-line camelcase
       }
@@ -383,30 +391,29 @@ module.exports = class extends Generator {
   }
 
   installing() {
-    const self = this;
     this.installDependencies({
-      npm: true,
-      callback: function (err) {
-        if (self.githubToken) {
+      npm:true,
+      bower:false,
+      callback: () => {
+        if(this.props.githubToken) {
           gitHubInit({
-            username: self.githubUsername,
-            token: self.githubToken,
-            reponame: self.name,
-            callback: function (err, data) {
-              if (err) {
-                self.log(err.red);
-                return;
-              }
-              self.log('I am all done'.green);
-            }
+            username: this.props.githubAccount,
+            token: this.props.githubToken,
+            reponame: this.props.name
+          }).then(data => {
+            this.log(data);
+          }, err => {
+            this.log(err);
           });
+        } else {
+          this.log(chalk.green('I am all done'));
         }
       }
     });
   }
 
   end() {
-    this.log('Thanks for using Yeoman.');
+    this.log('Thanks for using Bode.');
 
     if (this.options.travis) {
       let travisUrl = chalk.cyan(`https://travis-ci.org/profile/${this.props.githubAccount || ''}`);

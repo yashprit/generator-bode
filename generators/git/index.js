@@ -58,21 +58,5 @@ module.exports = Generator.extend({
     this.pkg.repository = this.pkg.repository || repository;
 
     this.fs.writeJSON(this.destinationPath(this.options.generateInto, 'package.json'), this.pkg);
-  },
-
-  end: function () {
-    this.spawnCommandSync('git', ['init', '--quiet'], {
-      cwd: this.destinationPath(this.options.generateInto)
-    });
-
-    if (!this.originUrl) {
-      let repoSSH = this.pkg.repository;
-      if (this.pkg.repository && this.pkg.repository.indexOf('.git') === -1) {
-        repoSSH = 'git@github.com:' + this.pkg.repository + '.git';
-      }
-      this.spawnCommandSync('git', ['remote', 'add', 'origin', repoSSH], {
-        cwd: this.destinationPath(this.options.generateInto)
-      });
-    }
   }
 });
