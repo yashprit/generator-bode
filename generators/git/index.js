@@ -1,10 +1,11 @@
 'use strict';
 const Generator = require('yeoman-generator');
 const originUrl = require('git-remote-origin-url');
+const gitHubInit = require('github-init');
 
-module.exports = Generator.extend({
-  constructor: function () {
-    Generator.apply(this, arguments);
+module.exports = class extends Generator {
+  constructor(args, options) {
+    super(args, options);
 
     this.option('generateInto', {
       type: String,
@@ -24,9 +25,15 @@ module.exports = Generator.extend({
       required: true,
       desc: 'GitHub username or organization'
     });
-  },
 
-  initializing: function () {
+    this.option('github-account-creation', {
+      type: String,
+      required: false,
+      desc: 'Create GitHub repo and commit intial code'
+    });
+  }
+
+  initializing() {
     this.fs.copy(
       this.templatePath('gitattributes'),
       this.destinationPath(this.options.generateInto, '.gitattributes')
@@ -38,14 +45,14 @@ module.exports = Generator.extend({
     );
 
     return originUrl(this.destinationPath(this.options.generateInto))
-      .then(function (url) {
+      .then(function(url) {
         this.originUrl = url;
-      }.bind(this), function () {
+      }.bind(this), function() {
         this.originUrl = '';
       }.bind(this));
-  },
+  }
 
-  writing: function () {
+  writing() {
     this.pkg = this.fs.readJSON(this.destinationPath(this.options.generateInto, 'package.json'), {});
 
     let repository = '';
@@ -59,4 +66,20 @@ module.exports = Generator.extend({
 
     this.fs.writeJSON(this.destinationPath(this.options.generateInto, 'package.json'), this.pkg);
   }
-});
+
+  end() {
+    if (this.options.githubToken) {
+      gitHubInit({
+        username: this.options.githubAccount,
+        token: this.options.githubToken,
+        reponame: this.options.name
+      }).then(data => {
+        this.log(data);
+        this.log('\nThanks for using Bode.');
+      }, err => {
+        this.log(err);
+        this.log('\nThanks for using Bode.');
+      });
+    }
+  }
+};

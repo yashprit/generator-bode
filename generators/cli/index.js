@@ -16,10 +16,12 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    const fileDestination = this.options.boilerplate? 'lib/cli.js' : 'cli.js';
+
     const pkg = this.fs.readJSON(this.destinationPath(this.options.generateInto, 'package.json'), {});
 
     extend(pkg, {
-      bin: 'lib/cli.js',
+      bin: fileDestination,
       dependencies: {
         meow: '^3.7.0'
       },
@@ -27,7 +29,7 @@ module.exports = class extends Generator {
         lec: '^1.0.1'
       },
       scripts: {
-        prepublish: 'lec lib/cli.js -c LF && nsp check'
+        prepublish: `lec ${fileDestination} -c LF && nsp check`
       }
     });
 
@@ -35,7 +37,7 @@ module.exports = class extends Generator {
 
     this.fs.copyTpl(
       this.templatePath('cli.js'),
-      this.destinationPath(this.options.generateInto, 'lib/cli.js'), {
+      this.destinationPath(this.options.generateInto, fileDestination), {
         pkgName: pkg.name,
         pkgSafeName: _.camelCase(pkg.name)
       }

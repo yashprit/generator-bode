@@ -11,11 +11,9 @@ const pkgJson = require('../../package.json');
 const gitScopeConfig = require('git-scope-config')({
   scope: 'global'
 });
-const gitHubInit = require('github-init');
 
 const bode = '\n\n' +
-  chalk.yellow('                                                 ddddddd\n') +
-  chalk.yellow('BBBBBBBBBBBBBBBBB                                d:::::d\n') +
+  chalk.yellow('BBBBBBBBBBBBBBBBB                                ddddddd\n') +
   chalk.yellow('B::::::::::::::::B                               d:::::d\n') +
   chalk.yellow('B::::::BBBBBB:::::B                              d:::::d\n') +
   chalk.green('BB:::::B     B:::::B                             d:::::d\n') +
@@ -36,72 +34,6 @@ module.exports = class extends Generator {
 
   constructor(args, options) {
     super(args, options);
-
-    this.option('travis', {
-      type: Boolean,
-      required: false,
-      default: true,
-      desc: 'Include travis config'
-    });
-
-    this.option('boilerplate', {
-      type: Boolean,
-      required: false,
-      default: true,
-      desc: 'Include boilerplate files'
-    });
-
-    this.option('cli', {
-      type: Boolean,
-      required: false,
-      default: false,
-      desc: 'Add a CLI'
-    });
-
-    this.option('coveralls', {
-      type: Boolean,
-      required: false,
-      desc: 'Include coveralls config'
-    });
-
-    this.option('editorconfig', {
-      type: Boolean,
-      required: false,
-      default: true,
-      desc: 'Include a .editorconfig file'
-    });
-
-    this.option('license', {
-      type: Boolean,
-      required: false,
-      default: true,
-      desc: 'Include a license'
-    });
-
-    this.option('name', {
-      type: String,
-      required: false,
-      desc: 'Project name'
-    });
-
-    this.option('githubAccount', {
-      type: String,
-      required: false,
-      desc: 'GitHub username or organization'
-    });
-
-    this.option('projectRoot', {
-      type: String,
-      required: false,
-      default: 'lib',
-      desc: 'Relative path to the project code root'
-    });
-
-    this.option('readme', {
-      type: String,
-      required: false,
-      desc: 'Content to insert in the README.md file'
-    });
   }
 
   initializing() {
@@ -115,7 +47,7 @@ module.exports = class extends Generator {
       name: this.pkg.name,
       description: this.pkg.description,
       version: this.pkg.version,
-      homepage: this.pkg.homepage
+      homepage: this.pkg.homepage,
     };
 
     if (_.isObject(this.pkg.author)) {
@@ -183,6 +115,38 @@ module.exports = class extends Generator {
         return words.split(/\s*,\s*/g);
       }
     }, {
+      type: 'list',
+      name: 'boilerplate',
+      message: chalk.green('Choose your test suite'),
+      choices: [{
+        name: 'Basic',
+        value: false
+      }, {
+        name: 'Advance',
+        value: true
+      }]
+    }, {
+      type: 'confirm',
+      name: 'cli',
+      message: chalk.green('Do you want cli support?')
+    }, {
+      name: 'includeCoveralls',
+      type: 'confirm',
+      message: chalk.green('Send coverage reports to coveralls'),
+      when: this.options.coveralls === undefined
+    }];
+
+    return this.prompt(prompts).then(props => {
+      this.props = extend(this.props, props);
+    });
+  }
+
+  _askForAdvanceConfig() {
+    if (!this.props.boilerplate) {
+      return Promise.resolve();
+    }
+
+    const prompts = [{
       type: 'confirm',
       name: 'browser',
       message: chalk.green('Shall I add Browserify support?')
@@ -192,37 +156,33 @@ module.exports = class extends Generator {
       message: chalk.green('Choose your test suite'),
       default: this.props.test,
       choices: [{
-        name: 'Node Unit'
+        name: 'Node Unit',
+        value: 'node_unit'
       }, {
-        name: 'Mocha Chai'
+        name: 'Mocha Chai',
+        value: 'mocha'
       }, {
-        name: 'Jasmine'
+        name: 'Jasmine',
+        value: 'jasmine'
       }, {
-        name: 'None'
-      }],
-      filter: function(val) {
-        return val;
-      }
+        name: 'None',
+        value: undefined
+      }]
     }, {
       type: 'list',
       name: 'taskRunner',
       message: chalk.green('Select Task runner'),
       choices: [{
-        name: 'Gulp'
+        name: 'Gulp',
+        value: 'gulp'
       }, {
-        name: 'Grunt'
+        name: 'Grunt',
+        value: 'Gruntfile'
       }, {
-        name: 'None'
-      }],
-      filter: function(val) {
-        return val + '.js';
-      }
-    }, {
-      name: 'includeCoveralls',
-      type: 'confirm',
-      message: chalk.green('Send coverage reports to coveralls'),
-      when: this.options.coveralls === undefined
-    }];
+        name: 'None',
+        value: undefined
+      }]
+    }]
 
     return this.prompt(prompts).then(props => {
       this.props = extend(this.props, props);
@@ -249,7 +209,7 @@ module.exports = class extends Generator {
   }
 
   _askForGitRepoCreation() {
-    const prompt = [{
+    const prompts = [{
       name: 'github',
       message: chalk.green('Create github repo with module name?'),
       required: false,
@@ -279,7 +239,7 @@ module.exports = class extends Generator {
       }
     }];
 
-    return this.prompt(prompt).then(props => {
+    return this.prompt(prompts).then(props => {
       if (props.token) {
         return gitScopeConfig.set('github.token', props.token, (err, status) => {
           if (!err) {
@@ -295,8 +255,9 @@ module.exports = class extends Generator {
   prompting() {
     return this._askForModuleName()
       .then(this._askFor.bind(this))
-      .then(this._askForGithubAccount.bind(this))
-      .then(this._askForGitRepoCreation.bind(this));
+      .then(this._askForAdvanceConfig.bind(this))
+      // .then(this._askForGithubAccount.bind(this))
+      // .then(this._askForGitRepoCreation.bind(this));
   }
 
   writing() {
@@ -351,7 +312,8 @@ module.exports = class extends Generator {
 
     this.composeWith(require.resolve('../git'), {
       name: this.props.name,
-      githubAccount: this.props.githubAccount
+      githubAccount: this.props.githubAccount,
+      githubToken: this.props.githubToken
     });
 
     this.composeWith(require.resolve('generator-jest/generators/app'), {
@@ -359,61 +321,60 @@ module.exports = class extends Generator {
       coveralls: false
     });
 
-    if (this.options.boilerplate) {
-      this.composeWith(require.resolve('../boilerplate'), {
-        name: this.props.name
-      });
-    }
+    this.composeWith(require.resolve('../boilerplate'), {
+      name: this.props.name,
+      test: this.props.test,
+      boilerplate: this.props.boilerplate,
+      taskRunner: this.props.taskRunner
+    });
 
-    if (this.options.cli) {
-      this.composeWith(require.resolve('../cli'));
-    }
+    this.composeWith(require.resolve('../cli'), {
+      boilerplate: this.props.boilerplate,
+    });
 
-    if (this.options.license && !this.pkg.license) {
-      this.composeWith(require.resolve('generator-license/app'), {
-        name: this.props.authorName,
-        email: this.props.authorEmail,
-        website: this.props.authorUrl
-      });
-    }
-
-    if (!this.fs.exists(this.destinationPath('README.md'))) {
-      this.composeWith(require.resolve('../readme'), {
+    if (this.props.boilerplate && this.props.taskRunner) {
+      this.composeWith(require.resolve('../runner'), {
         name: this.props.name,
-        description: this.props.description,
-        githubAccount: this.props.githubAccount,
-        authorName: this.props.authorName,
-        authorUrl: this.props.authorUrl,
-        coveralls: this.props.includeCoveralls,
-        content: this.options.readme
+        test: this.props.test,
+        boilerplate: this.props.boilerplate,
+        taskRunner: this.props.taskRunner
       });
     }
-  }
 
-  installing() {
-    this.installDependencies({
-      npm:true,
-      bower:false,
-      callback: () => {
-        if(this.props.githubToken) {
-          gitHubInit({
-            username: this.props.githubAccount,
-            token: this.props.githubToken,
-            reponame: this.props.name
-          }).then(data => {
-            this.log(data);
-          }, err => {
-            this.log(err);
-          });
-        } else {
-          this.log(chalk.green('I am all done'));
-        }
-      }
+    if (this.props.boilerplate && this.props.test) {
+      this.composeWith(require.resolve('../test'), {
+        name: this.props.name,
+        test: this.props.test,
+        boilerplate: this.props.boilerplate,
+        taskRunner: this.props.taskRunner
+      });
+    }
+
+    this.composeWith(require.resolve('generator-license/app'), {
+      name: this.props.authorName,
+      email: this.props.authorEmail,
+      website: this.props.authorUrl
+    });
+
+    this.composeWith(require.resolve('../readme'), {
+      name: this.props.name,
+      description: this.props.description,
+      githubAccount: this.props.githubAccount,
+      authorName: this.props.authorName,
+      authorUrl: this.props.authorUrl,
+      coveralls: this.props.includeCoveralls,
+      content: this.options.readme
     });
   }
 
+  installing() {
+    this.npmInstall();
+  }
+
   end() {
-    this.log('Thanks for using Bode.');
+    if (!this.props.githubToken) {
+      this.log('Thanks for using Bode.');
+    }
 
     if (this.options.travis) {
       let travisUrl = chalk.cyan(`https://travis-ci.org/profile/${this.props.githubAccount || ''}`);

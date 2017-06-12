@@ -18,10 +18,18 @@ module.exports = class extends Generator {
       required: true,
       desc: 'The new module name.'
     });
+
+    this.option('test', {
+      type: String,
+      required: false,
+      desc: 'Testing Module'
+    })
   }
 
   writing() {
-    const filepath = this.destinationPath(this.options.generateInto, 'lib/index.js');
+    const fileDestination = this.options.boilerplate? 'lib/index.js' : 'index.js';
+
+    const filepath = this.destinationPath(this.options.generateInto, fileDestination);
 
     this.fs.copyTpl(this.templatePath('index.js'), filepath);
 

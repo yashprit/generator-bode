@@ -11,7 +11,6 @@ describe('bode:git', () => {
       .then(() => {
         assert.file('.gitignore');
         assert.file('.gitattributes');
-        assert.file('.git');
       });
   });
 
@@ -24,7 +23,6 @@ describe('bode:git', () => {
       .then(() => {
         assert.file('other/.gitignore');
         assert.file('other/.gitattributes');
-        assert.file('other/.git');
       });
   });
 });
