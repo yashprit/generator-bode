@@ -13,6 +13,13 @@ module.exports = class extends Generator {
       desc: 'Relocate the location of the generated files.'
     });
 
+    this.option('taskRunner', {
+      type: String,
+      required: false,
+      default: 'gulpfile',
+      desc: 'TaskRunner module'
+    });
+
     this.option('testing', {
       type: String,
       required: false,
@@ -22,12 +29,63 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const fileName = `${this.options.taskRunner}.js` 
+    const fileName = `${this.options.taskRunner}.js`;
+
+    if (this.options.taskRunner == 'grulpfile') {
+      var devDependencies = {
+        'gulp': '^3.9.1',
+        'gulp-eslint': '^4.0.0'
+      }
+
+      var test = 'gulp'
+
+      if (testing === 'node') {
+        devDependencies['gulp-nodeunit'] = '^0.1.0';
+      } else if (testing === 'mocha') {
+        devDependencies['gulp-mocha'] = '^4.3.1';
+        devDependencies['chai'] = '^4.0.2';
+      } else if (testing === 'jasmine') {
+        devDependencies['gulp-jasmine'] = '^2.4.2 ';
+      }
+    }
+
+    if (this.options.taskRunner == 'Gruntfile') {
+      var devDependencies = {
+        'grunt-cli': '^1.2.0',
+        'grunt-contrib-eslint': '^0.0.5',
+        'grunt-contrib-watch': '^1.0.0',
+        'load-grunt-tasks': '^3.5.2',
+        'time-grunt': '^1.4.0'
+      }
+
+      var test = 'grunt'
+
+      if (testing === 'node') {
+        devDependencies['grunt-contrib-nodeunit'] = '^1.0.0';
+      } else if (testing === 'mocha') {
+        devDependencies['grunt-mocha-cli'] = '^3.0.0';
+        devDependencies['chai'] = '^4.0.2';
+      } else if (testing === 'jasmine') {
+        devDependencies['grunt-contrib-jasmine'] = '^1.1.0';
+      }
+    }
+
+    const pkgJson = {
+      devDependencies: devDependencies,
+      scripts: {
+        test: test
+      }
+    };
+
+    this.fs.extendJSON(
+      this.destinationPath(this.options.generateInto, 'package.json'),
+      pkgJson
+    );
 
     this.fs.copyTpl(
       this.templatePath(fileName),
       this.destinationPath(this.options.generateInto, fileName), {
-        testing: this.options.testing
+        testing: this.options.test
       }
     );
   }

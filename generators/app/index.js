@@ -34,6 +34,72 @@ module.exports = class extends Generator {
 
   constructor(args, options) {
     super(args, options);
+
+    this.option('travis', {
+      type: Boolean,
+      required: false,
+      default: true,
+      desc: 'Include travis config'
+    });
+
+    this.option('boilerplate', {
+      type: Boolean,
+      required: false,
+      default: true,
+      desc: 'Include boilerplate files'
+    });
+
+    this.option('cli', {
+      type: Boolean,
+      required: false,
+      default: false,
+      desc: 'Add a CLI'
+    });
+
+    this.option('coveralls', {
+      type: Boolean,
+      required: false,
+      desc: 'Include coveralls config'
+    });
+
+    this.option('editorconfig', {
+      type: Boolean,
+      required: false,
+      default: true,
+      desc: 'Include a .editorconfig file'
+    });
+
+    this.option('license', {
+      type: Boolean,
+      required: false,
+      default: true,
+      desc: 'Include a license'
+    });
+
+    this.option('name', {
+      type: String,
+      required: false,
+      desc: 'Project name'
+    });
+
+    this.option('githubAccount', {
+      type: String,
+      required: false,
+      desc: 'GitHub username or organization'
+    });
+
+    this.option('projectRoot', {
+      type: String,
+      required: false,
+      default: 'lib',
+      desc: 'Relative path to the project code root'
+    });
+
+    this.option('readme', {
+      type: String,
+      required: false,
+      desc: 'Content to insert in the README.md file'
+    });
   }
 
   initializing() {
@@ -143,8 +209,11 @@ module.exports = class extends Generator {
 
   _askForAdvanceConfig() {
     if (!this.props.boilerplate) {
+      this.options.projectRoot = '';
       return Promise.resolve();
     }
+
+    this.options.projectRoot = 'lib';
 
     const prompts = [{
       type: 'confirm',
@@ -174,7 +243,7 @@ module.exports = class extends Generator {
       message: chalk.green('Select Task runner'),
       choices: [{
         name: 'Gulp',
-        value: 'gulp'
+        value: 'gulpfile'
       }, {
         name: 'Grunt',
         value: 'Gruntfile'
@@ -330,6 +399,10 @@ module.exports = class extends Generator {
 
     this.composeWith(require.resolve('../cli'), {
       boilerplate: this.props.boilerplate,
+    });
+
+    this.composeWith(require.resolve('../browserify'), {
+      path: this.options.projectRoot
     });
 
     if (this.props.boilerplate && this.props.taskRunner) {

@@ -27,7 +27,7 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath(fileName),
       this.destinationPath(this.options.generateInto, fileName), {
-        testing: this.options.testing
+        testing: this.options.test
       }
     );
   }
