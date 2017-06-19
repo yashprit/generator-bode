@@ -9,26 +9,54 @@ module.exports = class extends Generator {
     this.option('generateInto', {
       type: String,
       required: false,
-      defaults: '',
+      default: '',
       desc: 'Relocate the location of the generated files.'
     });
 
-    this.option('testing', {
+    this.option('name', {
       type: String,
-      required: false,
-      default: '',
-      desc: 'Testing module'
+      required: true,
+      desc: 'The new module name.'
     });
+
+    this.option('projectRoot', {
+      type: String,
+      required: true,
+      desc: 'Project root.'
+    });
+
+    this.option('test', {
+      type: String,
+      required: true,
+      desc: 'Test Configuration'
+    });
+
+    this.option('boilerplate', {
+      type: String,
+      required: true,
+      desc: 'Boilerplate code'
+    });
+
   }
 
   writing() {
-    const fileName = `${this.options.taskRunner}.js` 
 
-    this.fs.copyTpl(
-      this.templatePath(fileName),
-      this.destinationPath(this.options.generateInto, fileName), {
-        testing: this.options.test
-      }
-    );
+    var filepath = this.options.projectRoot;
+
+    if (this.options.boilerplate && !this.options.test) {
+      this.composeWith(require.resolve('generator-jest/generators/test'), {
+        arguments: [filepath],
+        componentName: this.options.name
+      });
+    } else {
+      const fileDestination = `test/${this.options.name}.test.js`;
+      this.fs.copyTpl(
+        this.templatePath('test.js'),
+        this.destinationPath(this.options.generateInto, fileDestination), {
+          name: this.options.name,
+          filepath: filepath
+        }
+      );
+    }
   }
 };

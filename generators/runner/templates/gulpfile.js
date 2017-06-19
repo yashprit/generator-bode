@@ -1,7 +1,7 @@
 'use strict';
 var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
-  <% if(testing === 'node'){ %>
+  <% if(testing === 'node_unit'){ %>
 nodeunit = require('gulp-nodeunit');
 <% } else if (testing === 'mocha'){ %>
 mocha = require('gulp-mocha');
@@ -9,7 +9,7 @@ mocha = require('gulp-mocha');
 jasmine = require('gulp-jasmine');
 <%}%>
 
-<% if (testing === 'node') { %>
+<% if (testing === 'node_unit') { %>
 gulp.task('test', function() {
   return gulp.src('test/*.js').pipe(nodeunit());
 });
@@ -28,7 +28,7 @@ gulp.task('test', function() {
 <% } %>
 
 gulp.task('lint', () => {
-  return gulp.src([<%=srcPath%>, '!node_modules/**'])
+  return gulp.src(['<%= srcPath %>'], '!node_modules/**'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());

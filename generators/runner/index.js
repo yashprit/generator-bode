@@ -31,7 +31,9 @@ module.exports = class extends Generator {
   writing() {
     const fileName = `${this.options.taskRunner}.js`;
 
-    if (this.options.taskRunner == 'grulpfile') {
+    var avaibleTest = this.options.testing;
+
+    if (this.options.taskRunner == 'gulpfile') {
       var devDependencies = {
         'gulp': '^3.9.1',
         'gulp-eslint': '^4.0.0'
@@ -39,12 +41,12 @@ module.exports = class extends Generator {
 
       var test = 'gulp'
 
-      if (testing === 'node') {
+      if (avaibleTest === 'node_unit') {
         devDependencies['gulp-nodeunit'] = '^0.1.0';
-      } else if (testing === 'mocha') {
+      } else if (avaibleTest === 'mocha') {
         devDependencies['gulp-mocha'] = '^4.3.1';
         devDependencies['chai'] = '^4.0.2';
-      } else if (testing === 'jasmine') {
+      } else if (avaibleTest === 'jasmine') {
         devDependencies['gulp-jasmine'] = '^2.4.2 ';
       }
     }
@@ -60,12 +62,12 @@ module.exports = class extends Generator {
 
       var test = 'grunt'
 
-      if (testing === 'node') {
+      if (avaibleTest === 'node_unit') {
         devDependencies['grunt-contrib-nodeunit'] = '^1.0.0';
-      } else if (testing === 'mocha') {
+      } else if (avaibleTest === 'mocha') {
         devDependencies['grunt-mocha-cli'] = '^3.0.0';
         devDependencies['chai'] = '^4.0.2';
-      } else if (testing === 'jasmine') {
+      } else if (avaibleTest === 'jasmine') {
         devDependencies['grunt-contrib-jasmine'] = '^1.1.0';
       }
     }
@@ -85,7 +87,8 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath(fileName),
       this.destinationPath(this.options.generateInto, fileName), {
-        testing: this.options.test
+        testing: avaibleTest,
+        srcPath: ''
       }
     );
   }

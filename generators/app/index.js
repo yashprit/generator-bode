@@ -385,11 +385,6 @@ module.exports = class extends Generator {
       githubToken: this.props.githubToken
     });
 
-    this.composeWith(require.resolve('generator-jest/generators/app'), {
-      testEnvironment: 'node',
-      coveralls: false
-    });
-
     this.composeWith(require.resolve('../boilerplate'), {
       name: this.props.name,
       test: this.props.test,
@@ -397,27 +392,25 @@ module.exports = class extends Generator {
       taskRunner: this.props.taskRunner
     });
 
+    this.composeWith(require.resolve('../test'), {
+      name: _.camelCase(this.props.name),
+      projectRoot: this.options.projectRoot
+    });
+
     this.composeWith(require.resolve('../cli'), {
       boilerplate: this.props.boilerplate,
     });
 
-    this.composeWith(require.resolve('../browserify'), {
-      path: this.options.projectRoot
-    });
+    if (this.props.browser) {
+      this.composeWith(require.resolve('../browserify'), {
+        path: this.options.projectRoot
+      });
+    }
 
     if (this.props.boilerplate && this.props.taskRunner) {
       this.composeWith(require.resolve('../runner'), {
         name: this.props.name,
-        test: this.props.test,
-        boilerplate: this.props.boilerplate,
-        taskRunner: this.props.taskRunner
-      });
-    }
-
-    if (this.props.boilerplate && this.props.test) {
-      this.composeWith(require.resolve('../test'), {
-        name: this.props.name,
-        test: this.props.test,
+        testing: this.props.test,
         boilerplate: this.props.boilerplate,
         taskRunner: this.props.taskRunner
       });
