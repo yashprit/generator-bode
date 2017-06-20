@@ -45,7 +45,7 @@ module.exports = class extends Generator {
     this.option('boilerplate', {
       type: Boolean,
       required: false,
-      default: true,
+      default: false,
       desc: 'Include boilerplate files'
     });
 
@@ -343,7 +343,7 @@ module.exports = class extends Generator {
         url: this.props.authorUrl
       },
       files: [this.options.projectRoot],
-      main: path.join(this.options.projectRoot, 'index.js').replace(/\\/g, '/'),
+      main: path.join(this.options.projectRoot, 'index.js'),
       keywords: [],
       devDependencies: {}
     }, currentPkg);
@@ -386,10 +386,8 @@ module.exports = class extends Generator {
     });
 
     this.composeWith(require.resolve('../boilerplate'), {
-      name: this.props.name,
-      test: this.props.test,
-      boilerplate: this.props.boilerplate,
-      taskRunner: this.props.taskRunner
+      projectRoot: this.options.projectRoot,
+      boilerplate: this.props.boilerplate
     });
 
     this.composeWith(require.resolve('../test'), {
@@ -401,9 +399,9 @@ module.exports = class extends Generator {
       boilerplate: this.props.boilerplate,
     });
 
-    if (this.props.browser) {
+    if (this.options.browser) {
       this.composeWith(require.resolve('../browserify'), {
-        path: this.options.projectRoot
+        projectRoot: this.options.projectRoot
       });
     }
 
@@ -412,7 +410,8 @@ module.exports = class extends Generator {
         name: this.props.name,
         testing: this.props.test,
         boilerplate: this.props.boilerplate,
-        taskRunner: this.props.taskRunner
+        taskRunner: this.props.taskRunner,
+        projectRoot: this.options.projectRoot
       });
     }
 

@@ -19,17 +19,19 @@ describe('bode:app', () => {
     });
   });
 
-  describe('running on new project', () => {
+  describe('running on advance config project', () => {
     it('scaffold a full project', () => {
       const answers = {
         name: 'generator-bode',
         description: 'A node generator',
-        homepage: 'http://yeoman.io',
-        githubAccount: 'yeoman',
-        authorName: 'The Yeoman Team',
-        authorEmail: 'hi@yeoman.io',
-        authorUrl: 'http://yeoman.io',
+        homepage: 'http://yashprit.com',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorEmail: 'yashprit@yashprit.com',
+        authorUrl: 'http://yashprit.com',
         keywords: ['foo', 'bar'],
+        boilerplate: true,
+        cli: true,
         test: 'node_unit',
         includeCoveralls: true
       };
@@ -43,7 +45,8 @@ describe('bode:app', () => {
             '.gitattributes',
             'README.md',
             'lib/index.js',
-            'lib/__tests__/generatorBode.test.js'
+            'lib/cli.js',
+            '__tests__/generatorBode.test.js'
           ]);
 
           assert.file('package.json');
@@ -52,7 +55,7 @@ describe('bode:app', () => {
             version: '0.0.0',
             description: answers.description,
             homepage: answers.homepage,
-            repository: 'yeoman/generator-bode',
+            repository: `${answers.githubAccount}/generator-bode`,
             author: {
               name: answers.authorName,
               email: answers.authorEmail,
@@ -76,31 +79,6 @@ describe('bode:app', () => {
     });
   });
 
-  describe('running on existing project', () => {
-    it('Keeps current Readme and extend package.json fields', () => {
-      const pkg = {
-        version: '1.0.34',
-        description: 'lots of fun',
-        homepage: 'http://yeoman.io',
-        repository: 'yeoman/generator-bode',
-        author: 'The Yeoman Team',
-        files: ['lib'],
-        keywords: ['bar']
-      };
-      return helpers.run(require.resolve('../generators/app'))
-        .withPrompts({name: 'generator-bode'})
-        .on('ready', gen => {
-          gen.fs.writeJSON(gen.destinationPath('package.json'), pkg);
-          gen.fs.write(gen.destinationPath('README.md'), 'foo');
-        })
-        .then(() => {
-          const newPkg = _.extend({name: 'generator-bode'}, pkg);
-          assert.jsonFileContent('package.json', newPkg);
-          assert.fileContent('README.md', 'foo');
-        });
-    });
-  });
-
   describe('--no-travis', () => {
     it('skip .travis.yml', () => {
       return helpers.run(require.resolve('../generators/app'))
@@ -112,7 +90,7 @@ describe('bode:app', () => {
   describe('--projectRoot', () => {
     it('include the raw files', () => {
       return helpers.run(require.resolve('../generators/app'))
-        .withOptions({projectRoot: 'generators'})
+        .withOptions({boilerplate: true, projectRoot: 'generators'})
         .then(() => {
           assert.jsonFileContent('package.json', {
             files: ['generators'],

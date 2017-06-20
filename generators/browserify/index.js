@@ -12,6 +12,12 @@ module.exports = class extends Generator {
       defaults: '',
       desc: 'Relocate the location of the generated files.'
     });
+
+    this.option('projectRoot', {
+      type: String,
+      required: true,
+      desc: 'Project root.'
+    });
   }
 
   writing() {
@@ -20,7 +26,7 @@ module.exports = class extends Generator {
         browserify: '14.4.0'
       },
       scripts: {
-        browser: `browserify ${this.option.path} > browser.js`
+        browser: `browserify ${this.options.projectRoot} > browser.js`
       }
     });
   }

@@ -8,9 +8,9 @@ describe('node:readme', () => {
       .withOptions({
         name: 'my-project',
         description: 'a cool project',
-        githubAccount: 'yeoman',
-        authorName: 'Yeoman',
-        authorUrl: 'http://yeoman.io',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorUrl: 'http://yashprit.com',
         coveralls: true
       })
       .on('ready', gen => {
@@ -25,8 +25,8 @@ describe('node:readme', () => {
     assert.fileContent('README.md', 'const myProject = require(\'my-project\');');
     assert.fileContent('README.md', '> a cool project');
     assert.fileContent('README.md', '$ npm install --save my-project');
-    assert.fileContent('README.md', 'MIT © [Yeoman](http://yeoman.io)');
-    assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yeoman/my-project.svg?branch=master');
+    assert.fileContent('README.md', 'MIT © [Yashprit](http://yashprit.com)');
+    assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yashprit/my-project.svg?branch=master');
     assert.fileContent('README.md', 'coveralls');
   });
 });
@@ -37,9 +37,9 @@ describe('node:readme --content', () => {
       .withOptions({
         name: 'my-project',
         description: 'a cool project',
-        githubAccount: 'yeoman',
-        authorName: 'Yeoman',
-        authorUrl: 'http://yeoman.io',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorUrl: 'http://yashprit.com',
         coveralls: true,
         content: 'My custom content'
       })
@@ -53,8 +53,8 @@ describe('node:readme --content', () => {
   it('fill custom contents in README.md', () => {
     assert.file('README.md');
     assert.fileContent('README.md', 'My custom content');
-    assert.fileContent('README.md', 'MIT © [Yeoman](http://yeoman.io)');
-    assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yeoman/my-project.svg?branch=master');
+    assert.fileContent('README.md', 'MIT © [Yashprit](http://yashprit.com)');
+    assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yashprit/my-project.svg?branch=master');
     assert.fileContent('README.md', 'coveralls');
   });
 });
@@ -65,9 +65,9 @@ describe('node:readme --no-coveralls', () => {
       .withOptions({
         name: 'my-project',
         description: 'a cool project',
-        githubAccount: 'yeoman',
-        authorName: 'Yeoman',
-        authorUrl: 'http://yeoman.io',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorUrl: 'http://yashprit.com',
         coveralls: false
       })
       .on('ready', gen => {
@@ -88,9 +88,9 @@ describe('node:readme --generate-into', () => {
       .withOptions({
         name: 'my-project',
         description: 'a cool project',
-        githubAccount: 'yeoman',
-        authorName: 'Yeoman',
-        authorUrl: 'http://yeoman.io',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorUrl: 'http://yashprit.com',
         coveralls: true,
         generateInto: 'other/'
       })
@@ -106,8 +106,8 @@ describe('node:readme --generate-into', () => {
     assert.fileContent('other/README.md', 'const myProject = require(\'my-project\');');
     assert.fileContent('other/README.md', '> a cool project');
     assert.fileContent('other/README.md', '$ npm install --save my-project');
-    assert.fileContent('other/README.md', 'MIT © [Yeoman](http://yeoman.io)');
-    assert.fileContent('other/README.md', '[travis-image]: https://travis-ci.org/yeoman/my-project.svg?branch=master');
+    assert.fileContent('other/README.md', 'MIT © [Yashprit](http://yashprit.com)');
+    assert.fileContent('other/README.md', '[travis-image]: https://travis-ci.org/yashprit/my-project.svg?branch=master');
     assert.fileContent('other/README.md', 'coveralls');
   });
 });
@@ -118,9 +118,9 @@ describe('node:readme --content and --generate-into', () => {
       .withOptions({
         name: 'my-project',
         description: 'a cool project',
-        githubAccount: 'yeoman',
-        authorName: 'Yeoman',
-        authorUrl: 'http://yeoman.io',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorUrl: 'http://yashprit.com',
         coveralls: true,
         content: 'My custom content',
         generateInto: 'other/'
@@ -135,8 +135,8 @@ describe('node:readme --content and --generate-into', () => {
   it('fill custom contents in README.md', () => {
     assert.file('other/README.md');
     assert.fileContent('other/README.md', 'My custom content');
-    assert.fileContent('other/README.md', 'MIT © [Yeoman](http://yeoman.io)');
-    assert.fileContent('other/README.md', '[travis-image]: https://travis-ci.org/yeoman/my-project.svg?branch=master');
+    assert.fileContent('other/README.md', 'MIT © [Yashprit](http://yashprit.com)');
+    assert.fileContent('other/README.md', '[travis-image]: https://travis-ci.org/yashprit/my-project.svg?branch=master');
     assert.fileContent('other/README.md', 'coveralls');
   });
 });
@@ -147,9 +147,9 @@ describe('node:readme --no-coveralls and --generate-into', () => {
       .withOptions({
         name: 'my-project',
         description: 'a cool project',
-        githubAccount: 'yeoman',
-        authorName: 'Yeoman',
-        authorUrl: 'http://yeoman.io',
+        githubAccount: 'yashprit',
+        authorName: 'Yashprit',
+        authorUrl: 'http://yashprit.com',
         coveralls: false,
         generateInto: 'other/'
       })

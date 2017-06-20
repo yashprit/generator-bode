@@ -36,7 +36,6 @@ module.exports = class extends Generator {
       required: true,
       desc: 'Boilerplate code'
     });
-
   }
 
   writing() {
@@ -49,9 +48,9 @@ module.exports = class extends Generator {
         componentName: this.options.name
       });
     } else {
-      const fileDestination = `test/${this.options.name}.test.js`;
+      const fileDestination = `__tests__/${this.options.name}.test.js`;
       this.fs.copyTpl(
-        this.templatePath('test.js'),
+        this.templatePath('module_test.js'),
         this.destinationPath(this.options.generateInto, fileDestination), {
           name: this.options.name,
           filepath: filepath

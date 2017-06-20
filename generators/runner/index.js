@@ -88,7 +88,7 @@ module.exports = class extends Generator {
       this.templatePath(fileName),
       this.destinationPath(this.options.generateInto, fileName), {
         testing: avaibleTest,
-        srcPath: ''
+        srcPath: this.options.projectRoot
       }
     );
   }

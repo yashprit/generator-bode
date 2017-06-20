@@ -13,6 +13,13 @@ module.exports = class extends Generator {
       defaults: '',
       desc: 'Relocate the location of the generated files.'
     });
+
+    this.option('boilerplate', {
+      type: String,
+      required: false,
+      defaults: '',
+      desc: 'Type of configuration advance or basic'
+    });
   }
 
   writing() {

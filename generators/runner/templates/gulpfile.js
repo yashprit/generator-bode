@@ -11,19 +11,19 @@ jasmine = require('gulp-jasmine');
 
 <% if (testing === 'node_unit') { %>
 gulp.task('test', function() {
-  return gulp.src('test/*.js').pipe(nodeunit());
+  return gulp.src('__test__/*.js').pipe(nodeunit());
 });
 <% } else if (testing === 'mocha') { %>
 gulp.task('test', function() {
-  return gulp.src('test/*.js').pipe(mocha());
+  return gulp.src('__test__/*.js').pipe(mocha());
 });
 <% } else if (testing === 'jasmine') { %>
 gulp.task('test', function() {
-  return gulp.src('test/*.js').pipe(jasmine());
+  return gulp.src('__test__/*.js').pipe(jasmine());
 });
 <% } else if (testing === 'jest') { %>
 gulp.task('test', function() {
-  return gulp.src('test/*.js').pipe(jasmine());
+  return gulp.src('__test__/*.js').pipe(jasmine());
 });
 <% } %>
 

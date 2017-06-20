@@ -13,15 +13,16 @@ module.exports = class extends Generator {
       desc: 'Relocate the location of the generated files.'
     });
 
-    this.option('name', {
+    this.option('boilerplate', {
       type: String,
       required: true,
-      desc: 'The new module name.'
+      desc: 'Basic or Advance configuration.'
     });
 
     this.option('projectRoot', {
       type: String,
       required: false,
+      default: '',
       desc: 'Root Project'
     })
   }
