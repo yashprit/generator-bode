@@ -6,13 +6,6 @@ module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    this.option('generateInto', {
-      type: String,
-      required: false,
-      default: '',
-      desc: 'Relocate the location of the generated files.'
-    });
-
     this.option('name', {
       type: String,
       required: true,
@@ -22,18 +15,21 @@ module.exports = class extends Generator {
     this.option('projectRoot', {
       type: String,
       required: true,
+      default: '',
       desc: 'Project root.'
     });
 
     this.option('test', {
       type: String,
       required: true,
+      default: '',
       desc: 'Test Configuration'
     });
 
     this.option('boilerplate', {
       type: String,
       required: true,
+      default: false,
       desc: 'Boilerplate code'
     });
   }
@@ -42,16 +38,17 @@ module.exports = class extends Generator {
 
     var filepath = this.options.projectRoot;
 
+    const fileDestination = `${this.options.name}.test.js`;
+
     if (this.options.boilerplate && !this.options.test) {
       this.composeWith(require.resolve('generator-jest/generators/test'), {
-        arguments: [filepath],
+        arguments: [fileDestination],
         componentName: this.options.name
       });
     } else {
-      const fileDestination = `__tests__/${this.options.name}.test.js`;
       this.fs.copyTpl(
         this.templatePath('module_test.js'),
-        this.destinationPath(this.options.generateInto, fileDestination), {
+        this.destinationPath(`__tests__/${fileDestination}`), {
           name: this.options.name,
           filepath: filepath
         }

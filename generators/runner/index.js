@@ -6,13 +6,6 @@ module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    this.option('generateInto', {
-      type: String,
-      required: false,
-      defaults: '',
-      desc: 'Relocate the location of the generated files.'
-    });
-
     this.option('taskRunner', {
       type: String,
       required: false,
@@ -23,7 +16,7 @@ module.exports = class extends Generator {
     this.option('testing', {
       type: String,
       required: false,
-      default: '',
+      default: 'node_unit',
       desc: 'Testing module'
     });
   }
@@ -80,13 +73,13 @@ module.exports = class extends Generator {
     };
 
     this.fs.extendJSON(
-      this.destinationPath(this.options.generateInto, 'package.json'),
+      this.destinationPath('package.json'),
       pkgJson
     );
 
     this.fs.copyTpl(
       this.templatePath(fileName),
-      this.destinationPath(this.options.generateInto, fileName), {
+      this.destinationPath(fileName), {
         testing: avaibleTest,
         srcPath: this.options.projectRoot
       }

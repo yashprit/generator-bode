@@ -30,7 +30,7 @@ module.exports = class extends Generator {
   writing() {
     const fileDestination = this.options.boilerplate? `${this.options.projectRoot}/index.js` : 'index.js';
 
-    const filepath = this.destinationPath(this.options.generateInto, fileDestination);
+    const filepath = this.destinationPath(fileDestination);
 
     this.fs.copyTpl(this.templatePath('index.js'), filepath);
 

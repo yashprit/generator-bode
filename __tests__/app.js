@@ -55,7 +55,7 @@ describe('bode:app', () => {
             version: '0.0.0',
             description: answers.description,
             homepage: answers.homepage,
-            repository: `${answers.githubAccount}/generator-bode`,
+            repository: `yashprit/generator-bode`,
             author: {
               name: answers.authorName,
               email: answers.authorEmail,
@@ -70,8 +70,8 @@ describe('bode:app', () => {
           assert.fileContent('README.md', 'const generatorBode = require(\'generator-bode\');');
           assert.fileContent('README.md', '> A node generator');
           assert.fileContent('README.md', '$ npm install --save generator-bode');
-          assert.fileContent('README.md', '© [The Yeoman Team](http://yeoman.io)');
-          assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yeoman/generator-bode.svg?branch=master');
+          assert.fileContent('README.md', '© [Yashprit](http://yashprit.com)');
+          assert.fileContent('README.md', '[travis-image]: https://travis-ci.org/yashprit/generator-bode.svg?branch=master');
           assert.fileContent('README.md', 'coveralls');
 
           assert.fileContent('.travis.yml', '| coveralls');

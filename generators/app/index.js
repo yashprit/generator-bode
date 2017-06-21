@@ -208,12 +208,14 @@ module.exports = class extends Generator {
   }
 
   _askForAdvanceConfig() {
-    if (!this.props.boilerplate) {
+    const isBoilerPlate = this.props.boilerplate === undefined? this.options.boilerplate : this.props.boilerplate;
+
+    if (!isBoilerPlate) {
       this.options.projectRoot = '';
       return Promise.resolve();
     }
 
-    this.options.projectRoot = 'lib';
+    this.options.projectRoot = this.options.projectRoot ||'lib';
 
     const prompts = [{
       type: 'confirm',
@@ -325,7 +327,7 @@ module.exports = class extends Generator {
     return this._askForModuleName()
       .then(this._askFor.bind(this))
       .then(this._askForAdvanceConfig.bind(this))
-      // .then(this._askForGithubAccount.bind(this))
+      .then(this._askForGithubAccount.bind(this))
       // .then(this._askForGitRepoCreation.bind(this));
   }
 
