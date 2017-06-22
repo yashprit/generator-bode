@@ -328,7 +328,7 @@ module.exports = class extends Generator {
       .then(this._askFor.bind(this))
       .then(this._askForAdvanceConfig.bind(this))
       .then(this._askForGithubAccount.bind(this))
-      // .then(this._askForGitRepoCreation.bind(this));
+      .then(this._askForGitRepoCreation.bind(this));
   }
 
   writing() {
