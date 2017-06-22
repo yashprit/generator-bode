@@ -1,6 +1,6 @@
 {
   "name": "generator-bode",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Yeoman generator for bootstrapping node or npm package",
   "bugs": {
     "url": "https://github.com/yashprit/bode/issues"
